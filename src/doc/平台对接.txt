@@ -1,0 +1,71 @@
+平台调用
+////api/v1/game_launch
+agentToken://代理token
+secretKey:代理Key
+user_code 账号
+game_code: "fortune-tiger"
+user_balanc:金额o
+
+返回
+错误:
+    status:"error",
+    messge:"消息"
+正确
+    {
+        status:1
+        msg:"SUCCESS",
+        launch_url:"地址"
+        user_code:玩家账号
+        user_created: ture/false, 是否创建玩家
+        currency:"BRL"
+    }
+
+
+游戏回调平台
+1. gold_api/user_balance  type "application/json"   post
+参数:
+user_code: "用户id" 字符串
+返回 
+data:{
+    msg:字符串("INVALID_USER"->非法用户, "INSUFFICIENT_USER_FUNDS"
+}
+
+
+
+2. upBalance type "application/json" post
+json
+参数:
+    agent_code: 代理商code,
+    agent_secret: 代理密钥,
+    user_code: 用户账号,
+    user_balance: 用户钱,
+    user_total_credit: 信用分,
+    user_total_debit: 借,
+    game_type: "slot",
+    slot: {
+        provider_code: "PGSOFT",
+        game_code: 游戏名,
+        round_id: 第几轮,
+        type: "BASE",
+        bet: 下注,
+        win: 赢钱,
+        txn_id: `唯一ID， 做幂等判断使用`,
+        txn_type: "debit_credit",
+        is_buy: false,
+        is_call: true,
+        user_before_balance: 之前库存,
+        user_after_balance: 新库存,
+        agent_before_balance: 100,
+        agent_after_balance: 100,
+        created_at: 时间,
+    },
+
+tiger : 
+0 老虎
+2 元宝
+3 如意
+4 福袋
+5 红包
+6 鞭炮
+7 苹果
+

@@ -1,0 +1,185 @@
+ItemSpin
+   uint32 ID= 1;
+   uint32 Index = 2;
+   
+MallSpin
+   int32 Type = 1;
+   int32 Index = 2;
+   double Bet = 3;
+
+BuySpin
+	int32 BuyCustomType = 1;
+	
+SpecialCase
+	bool turbo = 1;
+	uint32 cheat = 2;
+	bool robot = 3;
+	bool tournament = 4;
+
+ExtraSpin
+	uint32 Index = 1;
+	
+FreeSpin
+	bool free = 1;
+
+SpecialBonus
+	bool used = 1;
+Browser
+	string type = 1;
+	string version = 2;
+	string language = 3;
+	uint32 width = 4;
+	uint32 height = 5;
+	float ratio = 6;
+WalletInfo
+	uint32 currencyNumber = 1;
+	string currencyName = 2;
+	string currencySymbol = 3;
+	double coin = 4;
+	repeated double bet = 5;
+	double unit = 6;
+	double ratio = 7;
+	double rate = 8;
+	double upper = 9;
+	double lower = 10;
+	double cycle = 11;
+	int32 decimal = 12;
+PreferRoundShow
+	double BaseRound = 1;
+	double SigmaRound = 2;
+	double CV = 3;
+	double HR = 4;
+	double MGR = 5;
+	double Range = 6;
+	int32 Show = 7;
+MallInfo
+	 double PriceOdd = 1;
+	 int32 DescType = 2;
+	 double MaxBet = 3;
+	 int32 AlterID = 4;
+	 int32 Show = 5;
+Tournament
+	 int32 id = 1;
+	 double balance = 2;
+	 double initBalance = 3;
+	 double MinBet = 4;
+	 double MaxBet = 5;
+	 int32 goal = 6;
+	 uint32 start = 6;
+	 uint32 end = 7;
+	 bool buyBonusOn = 7;
+	 bool extraBetOn = 8;
+	 
+spin: 0
+ double bet = 1;
+ uint32 cheat = 2;
+ uint32 itemIndex = 3;
+ uint32 itemID = 4;
+ int32 currencyNumber = 5;
+ double mallBet = 6;
+ uint32 vip = 7;
+ bytes customReq = 8;
+ bool isFree = 9;
+ uint32 Extra = 10;
+ uint32 Level = 11;
+ int32 BDType = 12;
+ int32 BBTimes = 13;
+ double AccuMallBet = 14;
+ double GameMallBet = 15;
+ int32 GameMallType = 16;
+ bool isr = 17;
+ int32 BuyCustomType = 18;
+ bool isturbo = 19;
+ ItemSpin item = 20;
+ MallSpin mall = 21;
+ BuySpin buy = 22;
+ SpecialCase special =23;
+ ExtraSpin extraSpin = 24;
+ FreeSpin freeSpin = 25;
+ bytes clientRecord = 26;
+ SpecialBonus specialBonus = 27;
+ bool istournament = 28;
+ 
+info: 1
+	string os = 1;
+	string language = 2;
+	Browser browser = 3;
+	string version = 4;
+	string model = 5;
+GameInfoAck
+	repeated WalletInfo WalletInfo = 1;
+	uint32 PreferRoundShow Prefer = 2;
+	uint32 FreeSpinRemain = 3;
+	bytes extraInfo = 4;
+	double rtp = 5;
+	repeated jpUnlockBet = 6;
+	MallInfo mall = 7;
+	int32 ApiType = 8;
+	double FreeSpinBet = 9;
+	uint32 gameMall = 10;
+	double MaxOdd = 11;
+	uint32 freeSpin = 12;
+	int32 freeSpinType = 13;
+	Tournament tournament = 14;
+	
+notice: 2
+  string lang = 1;
+  int32 currencyNumber = 2;
+  int32 level = 3;
+  
+logout: 3
+lastSpin: 4
+getBackPack: 5
+checkItem: 6
+getMail: 7
+readMail: 8
+getDailyMission: 9
+getNowMission: 10
+customAck:11
+checkSignUpStatus:12
+trialInfo: 14
+trialSignUp: 16
+trialGiveUp: 17
+getAllItemCanUse: 18
+vipSignInfo: 19
+vipSignReward: 20
+jpInfo: 21
+jpHistory: 22
+lotteryPlayerInfo: 23
+lotteryReward: 24
+fullJpInfo: 25
+fullJpHistory: 26
+fullJpInfoAll: 27
+debrisInfo: 29
+debrisPlayerInfo:30
+debrisGet: 31
+debrisExchange: 32
+jpShowData: 33
+getPlayerLevel: 34
+unshow: 36
+spinend: 37
+mallinfo: 38
+giftcodeverify: 39
+giftcodecheckblock: 40
+freeAbandon: 41
+freeGetAll:42
+freeGetHistory: 43
+freeBonusReward: 44
+buffGetBack: 45
+buffGetNow: 46
+buffUseReport: 47
+buffGetParam: 48
+
+
+
+
+
+
+
+
+
+
+
+
+
+

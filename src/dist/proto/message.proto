@@ -1,0 +1,69 @@
+syntax = "proto3";
+message WalletInfo{
+	uint32 currencyNumber = 1;
+	string currencyName = 2;
+	string currencySymbol = 3;
+	double coin = 4;
+	repeated double bet = 5;
+	double unit = 6;
+	double ratio = 7;
+	double rate = 8;
+	double upper = 9;
+	double lower = 10;
+	double cycle = 11;
+	int32 decimal = 12;
+}
+
+message MallInfo{
+    double PriceOdd = 1;
+    int32 DescType = 2;
+    double MaxBet = 3;
+    int32 AlterID = 4;
+    int32 Show = 5;
+}
+
+message PreferRoundShow {
+	double BaseRound = 1;
+	double SigmaRound = 2;
+	double CV = 3;
+	double HR = 4;
+	double MGR = 5;
+	double Range = 6;
+	int32 Show = 7;
+}
+
+message Tournament {
+	 int32 id = 1;
+	 double balance = 2;
+	 double initBalance = 3;
+	 double MinBet = 4;
+	 double MaxBet = 5;
+	 int32 goal = 6;
+	 uint32 start = 7;
+	 uint32 end = 8;
+	 bool buyBonusOn = 9;
+	 bool extraBetOn = 10;
+}
+message InfoReq {
+	string os = 1;
+	string language = 2;
+	Browser browser = 3;
+	string version = 4;
+	string model = 5;
+}
+message GameInfoAck {
+ 	repeated WalletInfo WalletInfo = 1;
+	PreferRoundShow Prefer = 2;
+	uint32 FreeSpinRemain = 3;
+	bytes extraInfo = 4;
+	double rtp = 5;
+	repeated double jpUnlockBet = 6;
+	MallInfo mall = 7;
+	int32 ApiType = 8;
+	double FreeSpinBet = 9;
+	uint32 gameMall = 10;
+	double MaxOdd = 11;
+	uint32 freeSpin = 12;
+	int32 freeSpinType = 13;
+	Tournament tournament = 14;
+} 
