@@ -218,6 +218,8 @@ exports.default = {
                     const json = jsonData.json;
                    
                     if (currentStep === 0) {
+
+                        yield allfunctions_1.default.completecall(calltwo[0].id);
                         const txnid = (0, uuid_1.v4)();
                         const dataFormatada = (0, moment_1.default)().toISOString();
                         let transRet = yield apicontroller_1.default.callbackgame(agent,{
@@ -262,11 +264,11 @@ exports.default = {
                            yield allfunctions_1.default.insertGameHistory(user, history)
                         }
 
-                        yield cashmaniafunctions_1.default.completecallAndSaveJsonSpin(calltwo[0].id, user.id, JSON.stringify(json));
+                        yield cashmaniafunctions_1.default.savejsonspin(user.id, JSON.stringify(json));
                         res.send(json);
                         return true;
                     }
-                    yield cashmaniafunctions_1.default.subtrairstepscallAndSaveJsonSpin(resultadospin.idcall, user.id, JSON.stringify(json));
+                    yield allfunctions_1.default.subtrairstepscall(resultadospin.idcall);
                     res.send(json);
 
                 }

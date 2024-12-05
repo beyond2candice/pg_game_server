@@ -25,7 +25,6 @@ const allfunctions_1 = __importDefault(require("../functions/allfunctions"));
 const gameCofig_functions  = __importDefault(require("../conf/game_config"));
 const apicontroller_1 = __importDefault(require("./apicontroller"));
 const gamecontollermgr_1 = __importDefault(require("./game_controller_mgr"));
-const game_data_cache = __importDefault(require("../cache/game_data_cache"));
 require("dotenv/config");
 exports.default = {
     verifySession(req, res) {
@@ -2877,17 +2876,4 @@ exports.default = {
             }
         });
     },
-
-    ClearAgentCache(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                game_data_cache.default.clearAgents();
-                res.send({status:1});
-            }catch (error) {
-               logger_1.default.error(error);
-                res.send({status:0})
-            }
-        });
-    },
-
 };

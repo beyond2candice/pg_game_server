@@ -38,4 +38,3 @@ INNER JOIN tb_user ON tb_history.atk = tb_user.atk
 SET tb_history.agent_id = tb_user.agent_id;
 
 ALTER TABLE `calls` ADD `call_rtp_id` INT NOT NULL DEFAULT '0' AFTER `rtpcallid`;
-

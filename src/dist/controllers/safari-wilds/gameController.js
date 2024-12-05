@@ -51,6 +51,8 @@ const apicontroller_1 = __importDefault(require("../apicontroller"));
 const serverEvents_1 = require("../../serverEvents");
 const safariwildsnotcash = __importDefault(require("../../jsons/safari-wilds/notcash"));
 const safariwildscontrol_logic = __importDefault(require("./controller_logic"));																	  
+
+ 
 require("dotenv/config");
 const _ = require('lodash');
 exports.default = {
@@ -76,123 +78,97 @@ exports.default = {
                 return crypto.randomBytes(8).toString("hex");
             }
             try {
-                const userRet = yield allfunctions_1.default.getuserbyatk(token);
-				if (!userRet || userRet.length < 1) {
-		            res.send(yield safariwildsnotcash.default.notcash(0, cs, ml));
-                    return false;
-				}
-				const user = userRet[0];
+                const user = yield safariwildsfunctions_1.default.getuserbyatk(token);
                 let bet = cs * ml * safariwildscontrol_logic.default.getMxl();
                 console.log(bet);
-                const gamename = "safari-wilds";
-                const game_code = 1594259;
-                const agentRet = yield allfunctions_1.default.getagentbyid(user.agentid);
-				if (!agentRet || agentRet.length < 1) {
-		            res.send(yield safariwildsnotcash.default.notcash(0, cs, ml));
-                    return false;
-				}
-				let agent = agentRet[0];
-                let getBalanceRet = yield apicontroller_1.default.getUserBalance(agent, user);
-                if (getBalanceRet.status !== 1) {
-                    res.send(yield safariwildsnotcash.default.notcash(user.saldo, cs, ml));
+                let saldoatual = user[0].saldo;
+                const gamename = "cruise-royale";
+                const gameCode = 1473388;
+                (0, serverEvents_1.emitirEventoInterno)("att", {
+                    token: token,
+                    username: user[0].username,
+                    bet: bet,
+                    saldo: saldoatual,
+                    rtp: user[0].rtp,
+                    agentid: user[0].agentid,
+                    gamecode: gamename,
+                });
+                const agent = yield allfunctions_1.default.getagentbyid(user[0].agentid);
+                const checkuserbalance = yield (0, axios_1.default)({
+                    maxBodyLength: Infinity,
+                    method: "POST",
+                    url: `${agent[0].callbackurl}/getBalance`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    data: {
+                        user_code: user[0].username,
+                    },
+                });
+                if (checkuserbalance.data.msg === "INVALID_USER") {
+                    res.send(yield safariwildsnotcash.default.notcash(saldoatual, cs, ml));
                     return false;
                 }
-				
-                let saldoatual = getBalanceRet.user_balance;
+                else if (checkuserbalance.data.msg === "INSUFFICIENT_USER_FUNDS") {
+                    res.send(yield safariwildsnotcash.default.notcash(saldoatual, cs, ml));
+                    return false;
+                }
+                const retornado = user[0].valorganho;
+                const valorapostado = user[0].valorapostado;
+                const rtp = (retornado / valorapostado) * 100;
+                console.log("RTP ATUAL " + rtp);
                 console.log("BET ATUAL " + bet);
-                if (!(bet>0) && (saldoatual < bet)) {
+                if (saldoatual < bet) {
                     const semsaldo = yield safariwildsnotcash.default.notcash(saldoatual, cs, ml);
                     res.send(semsaldo);
                     return false;
                 }
-                const resultadospin = yield safariwildscontrol_logic.default.takeResultFromBet(user, agent, bet, saldoatual, token, gamename);
+                const resultadospin = yield safariwildscontrol_logic.default.takeResultFromBet(user[0].id, bet, saldoatual, token, gamename);
                 if (resultadospin.result === constans.LOST) {//输
                     const perdajson = safariwildscontrol_logic.default.taskLostJsonData(resultadospin.json);
                     const jsonData = safariwildscontrol_logic.default.getLostJson(perdajson, ml, cs, bet, saldoatual)
 
-                    const txnid = (0, uuid_1.v4)();
-                    const dataFormatada = (0, moment_1.default)().toISOString();
-                    let transRet = yield apicontroller_1.default.callbackgame(agent, {
-                        agent_code: agent.agentCode,
-                        agent_secret: agent.secretKey,
-                        agent_balance:0,
-                        user_code: user.username,
-                        user_balance: user.saldo,
-                        game_type: "slot",
-                        slot: {
-                            provider_code: "PGSOFT",
-                            game_code: gamename,
-                            type: "BASE",
-                            bet_money: bet,
-                            win_money: 0,
-                            txn_id: `${txnid}`,
-                            txn_type: "debit_credit",
-                            created_at: dataFormatada,
-                        }
-                    });
-                    if (transRet.status !== 1) {
-                        res.send(yield safariwildsnotcash.default.notcash(saldoatual, cs, ml));
-                        return false;
-                    }
-
-                    let newbalance = transRet.user_balance;
+                    let newbalance = jsonData.newbalance;
                     let json = jsonData.json;
+                    yield safariwildsfunctions_1.default.updateUserLostBetInfo(token, newbalance, bet);
 
-                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id);
-
-                    let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si)
+                    let history = allfunctions_1.default.createGameHistory(gameCode, json.dt.si)
                     if (history) {
                        yield allfunctions_1.default.insertGameHistory(user, history)
                     }
 
-                    yield safariwildsfunctions_1.default.savejsonspin(user.id, JSON.stringify(json));
-                 
-                    res.send(json);
-                } 
-                
-                else if (resultadospin.result == constans.WIN) {
-                    const ganhojson = safariwildscontrol_logic.default.taskWinJsonData(resultadospin.json)
-                    const jsonData = safariwildscontrol_logic.default.GetWinJson(ganhojson, 0, ml, cs, bet, saldoatual);
-                    const valorganho = jsonData.valorganho;
-
+                    yield safariwildsfunctions_1.default.savejsonspin(user[0].id, JSON.stringify(json));
                     const txnid = (0, uuid_1.v4)();
                     const dataFormatada = (0, moment_1.default)().toISOString();
-                    let transRet = yield apicontroller_1.default.callbackgame(agent, {
-
-                        agent_code: agent.agentCode,
-                        agent_secret: agent.secretKey,
-                        agent_balance:0,
-                        user_code: user.username,
-                        user_balance: user.saldo,
+                    yield apicontroller_1.default.callbackgame({
+                        agent_code: agent[0].agentcode,
+                        agent_secret: agent[0].secretKey,
+                        user_code: user[0].username,
+                        user_balance: user[0].saldo,
+                        user_total_credit: user[0].valorganho,
+                        user_total_debit: user[0].valorapostado,
                         game_type: "slot",
                         slot: {
                             provider_code: "PGSOFT",
                             game_code: gamename,
+                            round_id: yield gerarNumeroUnico(),
                             type: "BASE",
-                            bet_money: bet,
-                            win_money: valorganho,
+                            bet: bet,
+                            win: 0,
                             txn_id: `${txnid}`,
                             txn_type: "debit_credit",
+                            is_buy: false,
+                            is_call: false,
+                            user_before_balance: user[0].saldo,
+                            user_after_balance: newbalance,
+                            agent_before_balance: 100,
+                            agent_after_balance: 100,
                             created_at: dataFormatada,
                         }
                     });
-                    if (transRet.status !== 1) {
-                        res.send(yield safariwildsnotcash.default.notcash(saldoatual, cs, ml));
-                        return false;
-                    }
-
-                    const newbalance = transRet.user_balance;
-                    const json = jsonData.json;
-                    yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, valorganho, resultadospin.call_rtp_id);
-                    let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
-                    if (history) {
-                        yield allfunctions_1.default.insertGameHistory(user, history)
-                    }
-
-                    yield safariwildsfunctions_1.default.savejsonspin(user.id, JSON.stringify(json));
+                 
                     res.send(json);
-                    return true;
-                }
+                } 
                 
                 
                 else if (resultadospin.result === constans.BIGWIN && resultadospin.gamecode === "safari-wilds") {//大奖
@@ -206,7 +182,7 @@ exports.default = {
                         }
                     } else {
                         const steps = Object.keys(cartajson).length - 1;
-                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id);
+                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user[0].id, resultadospin.json, steps);
                         resultadospin.idcall = calltwo[0].id;
                     }
                     
@@ -214,46 +190,21 @@ exports.default = {
                     const currentStep = calltwo[0].steps; 
 
                     const jsonData = safariwildscontrol_logic.default.GetBonusJson(cartajson, currentStep, ml, cs, bet, saldoatual);
-                    const totalValorganho = jsonData.totalValorganho;
+                    const newbalance = jsonData.newbalance;
+                    const valorganho = jsonData.valorganho;
                     const json = jsonData.json;
                    
                     if (currentStep === 0) {
-                        const txnid = (0, uuid_1.v4)();
-                        const dataFormatada = (0, moment_1.default)().toISOString();
-                        let transRet = yield apicontroller_1.default.callbackgame(agent,{
-                            agent_code: agent.agentCode,
-                            agent_secret: agent.secretKey,
-                            agent_balance:0,
-                            user_code: user.username,
-                            user_balance: user.saldo,
-                            game_type: "slot",
-                            slot: {
-                                provider_code: "PGSOFT",
-                                game_code: gamename,
-                                type: "BASE",
-                                bet_money: bet,
-                                win_money: totalValorganho,
-                                txn_id: `${txnid}`,
-                                txn_type: "debit_credit",
-                                created_at: dataFormatada,
-                            }
-                        });
 
-                        if (transRet.status !==1) {
-                            res.send(yield safariwildsnotcash.default.notcash(saldoatual, cs, ml));
-                            return false;
-                        }
-
-                        const newbalance = transRet.user_balance;
-                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id);
+                        yield safariwildsfunctions_1.default.updateUserWinBetInfo(token, newbalance, bet, valorganho);
                        if (propertyCount == 1) {
-                            let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
+                            let history = allfunctions_1.default.createGameHistory(gameCode, json.dt.si);
                             if (history) {
                                 yield allfunctions_1.default.insertGameHistory(user, history)
                             }
                         } else {
                             let historyJson = safariwildscontrol_logic.default.GetBonusJson(cartajson, propertyCount - 1, ml, cs, bet, saldoatual).json.dt.si;
-                            let history = allfunctions_1.default.createGameHistory(game_code, historyJson);
+                            let history = allfunctions_1.default.createGameHistory(gameCode, historyJson);
                             for (var i= propertyCount - 2; i>0; i--) {
                                 allfunctions_1.default.appendGameHistoryStep(history, safariwildscontrol_logic.default.GetBonusJson(cartajson, i, ml, cs, bet, saldoatual).json.dt.si);
                             }
@@ -262,11 +213,40 @@ exports.default = {
                            yield allfunctions_1.default.insertGameHistory(user, history)
                         }
 
-                        yield safariwildsfunctions_1.default.completecallAndSaveJsonSpin(calltwo[0].id, user.id, JSON.stringify(json));
+                        yield safariwildsfunctions_1.default.savejsonspin(user[0].id, JSON.stringify(json));
+                        yield allfunctions_1.default.completecall(calltwo[0].id);
+                        const txnid = (0, uuid_1.v4)();
+                        const dataFormatada = (0, moment_1.default)().toISOString();
+                        yield apicontroller_1.default.callbackgame({
+                            agent_code: agent[0].agentcode,
+                            agent_secret: agent[0].secretKey,
+                            user_code: user[0].username,
+                            user_balance: user[0].saldo,
+                            user_total_credit: user[0].valorganho,
+                            user_total_debit: user[0].valorapostado,
+                            game_type: "slot",
+                            slot: {
+                                provider_code: "PGSOFT",
+                                game_code: gamename,
+                                round_id: yield gerarNumeroUnico(),
+                                type: "BASE",
+                                bet: bet,
+                                win: valorganho,
+                                txn_id: `${txnid}`,
+                                txn_type: "debit_credit",
+                                is_buy: false,
+                                is_call: true,
+                                user_before_balance: user[0].saldo,
+                                user_after_balance: newbalance,
+                                agent_before_balance: 100,
+                                agent_after_balance: 100,
+                                created_at: dataFormatada,
+                            },
+                        });
                         res.send(json);
                         return true;
                     }
-                    yield safariwildsfunctions_1.default.subtrairstepscallAndSaveJsonSpin(resultadospin.idcall, user.id, JSON.stringify(json));
+                    yield allfunctions_1.default.subtrairstepscall(resultadospin.idcall);
                     res.send(json);
 
                 }

@@ -43,7 +43,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 let AGENT_MAP = {};
 let AGENT_TOKEN_TO_ID_MAP = {};
-let AGENT_CODE_TO_ID_MAP= {};
 let SECRET_KEY_TO_ID_MAP = {};
 let ONLINE_USER_MAP = new Map();
 let SOCKET_2_USER_GAME_INFO = new Map();
@@ -51,10 +50,10 @@ let SOCKET_2_USER_GAME_INFO = new Map();
 exports.default = {
    getAgentById(id) {
         let agentCache = AGENT_MAP[id];
+        let nowSec = Math.floor(Date.now()/1000);
         if (agentCache) {
-            let nowSec = Math.floor(Date.now()/1000);
-            if(agentCache.ExpireSec < nowSec) {
-               this.deleteAgent(agentCache.data);
+            if(agentCache.ExpireSec >= nowSec) {
+                delete AGENT_MAP.id;
                 return null;
             }
             return agentCache.data;
@@ -68,51 +67,18 @@ exports.default = {
         }
         return this.getAgentById(id);
     },
-    getAgentByCode(code) {
-        let id = AGENT_CODE_TO_ID_MAP[code];
-        if (!id) {
-            return null;
-        }
-        return this.getAgentById(id);
-    },
 
     getAgentBySecretKey(secretKey) {
-        let id = SECRET_KEY_TO_ID_MAP[secretKey];
+        let id = SECRET_KEY_TO_ID_MAP.get(token);
         if (!id) {
             return null;
         } 
         return this.getAgentById(id);
     },
     updateAgent(agent) {
-        AGENT_MAP[agent.id]= {ExpireSec:Math.floor(Date.now()/1000) + 300, data:agent};
+        AGENT_MAP[agent.id]= agent;
         AGENT_TOKEN_TO_ID_MAP[agent.agentToken] = agent.id;
         SECRET_KEY_TO_ID_MAP[agent.secretKey] = agent.id;
-        AGENT_CODE_TO_ID_MAP[agent.agentCode] = agent.id;
-    },
-    clearAgents() {
-        AGENT_MAP = {};
-        AGENT_TOKEN_TO_ID_MAP = {};
-        SECRET_KEY_TO_ID_MAP = {};
-        AGENT_CODE_TO_ID_MAP = {};
-    },
-    deleteAgentByCode(agentCode) {
-        const agent = this.getAgentByCode(agentCode);
-        if (agent) {
-            this.deleteAgent(agent);
-        }
-    },
-    deleteAgentById(Id) {
-        const agent = this.getAgentById(Id);
-        if (agent) {
-            this.deleteAgent(agent);
-        }
-    },
-
-    deleteAgent(agent) {
-        delete AGENT_TOKEN_TO_ID_MAP[agent.agentToken]; 
-        delete SECRET_KEY_TO_ID_MAP[agent.secretKey];
-        delete SECRET_KEY_TO_ID_MAP[agent.agentCode];
-        delete AGENT_MAP[agent.id];
     },
     updateAgentFields(id, fields) {
         let agent = this.getAgentById(id);

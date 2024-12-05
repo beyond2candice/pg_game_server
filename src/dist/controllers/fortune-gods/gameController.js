@@ -273,7 +273,8 @@ exports.default = {
                 
             }
             catch (error) {
-                logger_1.default.error(error);
+                console.log(error);
+                //logger_1.default.error(error);
             }
         });
     },

@@ -22,7 +22,6 @@ routes.post("/web-api/game-proxy/Social/SocialInitConfig/Get", sessioncontroller
 routes.get("/webservice/event/trigger", sessioncontroller_1.default.jilitrigger);
 routes.post("/sso-login.api", sessioncontroller_1.default.jilissologin);
 routes.get("/webservice/event/user", sessioncontroller_1.default.jiliuser);
-routes.post("/clear_agent_cache", sessioncontroller_1.default.ClearAgentCache);
 
 
 

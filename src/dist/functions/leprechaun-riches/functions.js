@@ -40,16 +40,4 @@ exports.default = {
             return res[0][0];
         });
     },
-    completecallAndSaveJsonSpin(call_id, user_id, json_pin) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const res = yield database_1.default.query("CALL sp_completecall_savejson_leprechaunrichesjson(?,?,?);", [call_id, user_id, json_pin]);
-            return res[0][0];
-        });
-    },
-    subtrairstepscallAndSaveJsonSpin(call_id, user_id, json_pin) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const res = yield database_1.default.query("CALL sp_subtrirstepscall_savejson_leprechaunrichesjson(?,?,?);", [call_id, user_id, json_pin]);
-            return res[0][0];
-        });
-    },
 };

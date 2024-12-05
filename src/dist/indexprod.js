@@ -58,6 +58,16 @@ const allfunctions_1 = __importDefault(require("./functions/allfunctions"));
 const game_data_cache = __importDefault(require("./cache/game_data_cache"));
 const serverEvents_1 = require("./serverEvents");
 
+if (process.env.TEST_MODE === "1"){
+    console.log("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+    console.log("TEST MODE");
+    console.log("TEST MODE");
+    console.log("TEST MODE");
+    console.log("TEST MODE");
+    console.log("TEST MODE");
+    console.log("TEST MODE");
+    console.log("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+}
 require("dotenv/config");
 // const privateKey = fs.readFileSync("server.key", "utf8")
 // const certificate = fs.readFileSync("server.crt", "utf8")

@@ -99,11 +99,11 @@ exports.default = {
                         } else {
                            // if(codegame == 1635221)
                           //  {
-                                 //launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
+                          //       launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
                           //  }
-                         //   else{
-                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
-                         //   }
+                          //  else{
+                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
+                          //  }
                            
 
                         }
@@ -130,13 +130,13 @@ exports.default = {
                         launghUrl = `https://${gameUrl}/${codegame}/index.html?oc=1&l=pt&operator_token=Zm9saWFiZXQ=&btt=1&t=${user[0].token}&or=${gameUrl}&api=${gameUrl}`;
                     } else {
                        // if(codegame == 1635221)
+                       //     {
+                       //          launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token//=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
+                       //     }
+                       //     else
                         //    {
-                        ////         launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
-                         //   }
-                        //    else
-                          //  {
-                                launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
-                         //   }
+                                launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
+                           // }
                         
                     }
                     
@@ -493,7 +493,7 @@ exports.default = {
                         return false;
                     }
                     const game_jsons = gameJsonResult.default.GetGameJsons();
-                    let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, getJsonScoreset.GameCode);
+                    let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, gameControlInfo.GameCode);
                     if (!jsonscoreset) {
                         res.send({
                             status: 0,
@@ -505,7 +505,7 @@ exports.default = {
                     let calls = [];
                     const TbScore = game_jsons[0].Tb;
                     jsonscoreset.forEach(score => {
-                        const winScore = score + TbScore;
+                        const winScore = score;
                         if (score >= 0) {
                             calls.push({rtp: Math.floor(10000*(winScore/ TbScore)), call_type:"Free"});
                         } else {
