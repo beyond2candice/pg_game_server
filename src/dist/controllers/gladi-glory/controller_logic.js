@@ -237,7 +237,7 @@ exports.default = {
         let json = {
             dt: {
                 si: { 
-                actw: cartajsonValue.actw, 
+                actw: allfunctions_1.default.MultiplyValueWithFix(cartajsonValue.actw , betRate), 
                 crtw: cartajsonValue.crtw, 
                 cwc: cartajsonValue.cwc, 
                 cwsp: cartajsonValue.cwsp, 
