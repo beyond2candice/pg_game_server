@@ -493,7 +493,7 @@ exports.default = {
                         return false;
                     }
                     const game_jsons = gameJsonResult.default.GetGameJsons();
-                    let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, getJsonScoreset.GameCode);
+                    let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, gameControlInfo.GameCode);
                     if (!jsonscoreset) {
                         res.send({
                             status: 0,
@@ -505,7 +505,7 @@ exports.default = {
                     let calls = [];
                     const TbScore = game_jsons[0].Tb;
                     jsonscoreset.forEach(score => {
-                        const winScore = score + TbScore;
+                        const winScore = score;
                         if (score >= 0) {
                             calls.push({rtp: Math.floor(10000*(winScore/ TbScore)), call_type:"Free"});
                         } else {
@@ -972,6 +972,161 @@ exports.default = {
                 }
             });
         },
+        rtp_call_id(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const id = parseInt(req.body.id);
+                    const agent_code = req.body.agent_code;
+                    const agent_token = req.body.agent_token;
+                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !id || id == "") {
+                        res.send({
+                            status: 0,
+                            msg: "invalid param"
+                        });
+                        return false;
+                    }
+
+                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                        res.send({
+                            status: 0,
+                            msg: "Agent Token não cadastrado.",
+                        });
+                        return false;
+                    }
+                    let get_res = yield allfunctions_1.default.rtp_call_user_id(id);
+                    if (!get_res) {
+                        res.send({
+                            status: 0,
+                            msg: "Internal Error.",
+                        });
+                        return false;
+                    }
+
+                    let data = [];
+                    get_res.forEach(rtp_call => {
+                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                        if (!game_info) {
+                            res.send({
+                                status: 0,
+                                msg: "Invalid game_code.",
+                            });
+                            return false;
+                        }
+
+                        data.push({
+                            id: rtp_call.id,
+                            agent_code: rtp_call.agentCode,
+                            user_code: rtp_call.user_code,
+                            provider_code: rtp_call.provider_code,
+                            game_code: game_info.PlatformGameName,
+                            bet: rtp_call.bet,
+                            expect: rtp_call.expect,
+                            real:rtp_call.real,
+                            missed: rtp_call.expect - rtp_call.real,
+                            rtp: rtp_call.rtp,
+                            type: "common",
+                            status: rtp_call.status, 
+                            created_at: new Date(rtp_call.created_at),
+                            updated_at: new Date(rtp_call.updated_at)
+                        });
+                    });
+
+                    res.send({
+                        status: 1,
+                        data:data
+                    });
+                    return true;
+                } catch (e){
+                    console.log(e);
+                }
+                res.send({
+                    status: 0,
+                    msg: "Internal Error.",
+                });
+                return false;
+            });
+        },
+        rtp_call_code(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const user_code = req.body.user_code;
+                    const agent_code = req.body.agent_code;
+                    const agent_token = req.body.agent_token;
+                    const page= parseInt(req.body.page);
+                    const limit = parseInt(req.body.limit);
+
+                    if (!user_code || user_code == "" || !agent_code || agent_code == "" || !agent_token || agent_token == "" || !page || page == "" || !limit || limit == "") {
+                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+                    }
+        
+
+                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                        res.send({
+                            status: 0,
+                            msg: "Agent Token não cadastrado.",
+                        });
+                        return false;
+                    }
+                    let agent = agent_res[0];
+                    const totalRecords = yield allfunctions_1.default.GetTotaluserRecords(user_code); 
+ 
+                    const offset = (page - 1) * limit;
+    
+                    if (totalRecords < offset) {
+                        return res.send({ status: 1, data: [], totalRecords: totalRecords ,currentPage: page});
+                    }
+        
+    
+
+                    let get_res = yield allfunctions_1.default.rtp_call_user_code(user_code, offset, limit);
+                    let data = [];
+                    get_res.forEach(rtp_call => {
+                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                        if (!game_info) {
+                            res.send({
+                                status: 0,
+                                msg: "Invalid game_code.",
+                            });
+                            return false;
+                        }
+
+                        data.push({
+                            id: rtp_call.id,
+                            agent_code: agent.agentCode,
+                            user_code: rtp_call.user_code,
+                            provider_code: rtp_call.provider_code,
+                            game_code: game_info.PlatformGameName,
+                            bet: rtp_call.bet,
+                            expect: rtp_call.expect,
+                            real:rtp_call.real,
+                            missed: rtp_call.expect - rtp_call.real,
+                            rtp: rtp_call.rtp,
+                            type: "common",
+                            status: rtp_call.status, 
+                            created_at: new Date(rtp_call.created_at),
+                            updated_at: new Date(rtp_call.updated_at)
+                        });
+                    });
+
+                    res.send({
+                        status: 1,
+                        data:data,
+                        totalRecords: totalRecords,
+                         currentPage: page
+                    });
+                    return true;
+                } catch (e){
+                    console.log(e);
+                }
+                res.send({
+                    status: 0,
+                    msg: "Internal Error.",
+                });
+                return false;
+            });
+        },
         SyncGameData(req, res) {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
@@ -981,7 +1136,7 @@ exports.default = {
                     const week_id_start = parseInt(req.body.week_id_start) || 0;
                     const history_time_ms = parseInt(req.body.history_time_ms) || 0;
                     let page_size = parseInt(req.body.page_size) || 0;
-                    console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
+                    //console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
                     if (!(page_size>0 && page_size<500)) {
                         page_size = 100;
                     }

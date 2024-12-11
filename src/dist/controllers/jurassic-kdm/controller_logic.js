@@ -127,7 +127,7 @@ exports.default = {
                 if (ret.Type === 0) {
                     return ret.Result;
                 } else {
-                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, ret.Result, gamename, jurassickdmjsonresult.default.GetGameJsons());
+                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, bet, ret, gamename, jurassickdmjsonresult.default.GetGameJsons());
                 }
             }
             return yield allfunctions_1.default.getBetResultScore(user, agent, bet, user_score, token, gamename, jurassickdmjsonresult.default.GetGameJsons());

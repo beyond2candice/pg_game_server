@@ -128,7 +128,7 @@ exports.default = {
                 if (ret.Type === 0) {
                     return ret.Result;
                 } else {
-                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, ret.Result, gamename, asgardianrsjsonresult.default.GetGameJsons());
+                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, bet, ret, gamename, asgardianrsjsonresult.default.GetGameJsons());
                 }
             }
             return yield allfunctions_1.default.getBetResultScore(user, agent, bet, user_score, token, gamename, asgardianrsjsonresult.default.GetGameJsons());
