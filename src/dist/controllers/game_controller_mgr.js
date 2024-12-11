@@ -118,6 +118,7 @@ const luckycloverController = __importDefault(require("./lucky-clover/gameContro
 const mystspiritsController = __importDefault(require("./myst-spirits/gameController"));
 const plushiefrenzyController = __importDefault(require("./plushie-frenzy/gameController"));
 const wildheistcoController = __importDefault(require("./wild-heist-co/gameController"));
+const dreamsofmacauController = __importDefault(require("./dreams-of-macau/gameController"));
 const dragonlegendController = __importDefault(require("./dragon-legend/gameController"));
 const jurassickdmController = __importDefault(require("./jurassic-kdm/gameController"));
 const santasgiftrushController = __importDefault(require("./santas-gift-rush/gameController"));
@@ -225,6 +226,7 @@ const luckycloverjsonResult = __importDefault(require("../jsons/lucky-clover/jso
 const mystspiritsjsonResult = __importDefault(require("../jsons/myst-spirits/jsonresult"));
 const plushiefrenzyjsonResult = __importDefault(require("../jsons/plushie-frenzy/jsonresult"));
 const wildheistcojsonResult = __importDefault(require("../jsons/wild-heist-co/jsonresult"));
+const dreamsofmacaujsonResult = __importDefault(require("../jsons/dreams-of-macau/jsonresult"));
 const dragonlegendjsonResult = __importDefault(require("../jsons/dragon-legend/jsonresult"));
 const jurassickdmjsonResult = __importDefault(require("../jsons/jurassic-kdm/jsonresult"));
 const santasgiftrushjsonResult = __importDefault(require("../jsons/santas-gift-rush/jsonresult"));
@@ -334,6 +336,7 @@ GAME_NAME_TO_GAME_CODE["lucky-clover"] = 1601012;
 GAME_NAME_TO_GAME_CODE["myst-spirits"] = 1432733;
 GAME_NAME_TO_GAME_CODE["plushie-frenzy"] = 25;
 GAME_NAME_TO_GAME_CODE["wild-heist-co"] = 1568554;
+GAME_NAME_TO_GAME_CODE["dreams-of-macau"] = 79;
 GAME_NAME_TO_GAME_CODE["dragon-legend"] = 29;
 GAME_NAME_TO_GAME_CODE["jurassic-kdm"] = 110;
 GAME_NAME_TO_GAME_CODE["santas-gift-rush"] = 37;
@@ -348,11 +351,13 @@ GAME_NAME_TO_GAME_CODE["mask-carnival"] = 118;
 GAME_NAME_TO_GAME_CODE["medusa"] = 7;
 GAME_NAME_TO_GAME_CODE["mermaid-riches"] = 102;
 GAME_NAME_TO_GAME_CODE["mr-hallow-win"] = 35;
-GAME_NAME_TO_GAME_CODE["muay-thai-champio"] = 64;
+
+GAME_NAME_TO_GAME_CODE["muay-thai-champion"] = 64;
 GAME_NAME_TO_GAME_CODE["ninja-raccoon"] = 1529867;
 GAME_NAME_TO_GAME_CODE["ninja-vs-samurai"] = 59;
 GAME_NAME_TO_GAME_CODE["prosperity-lion"] = 36;
-GAME_NAME_TO_GAME_CODE["reel-lovey"] = 20;
+
+GAME_NAME_TO_GAME_CODE["reel-love"] = 20;
 GAME_NAME_TO_GAME_CODE["rio-fantasia"] = 1786529;
 GAME_NAME_TO_GAME_CODE["rise-of-apollo"] = 101;
 GAME_NAME_TO_GAME_CODE["shaolin-soccer"] = 67;
@@ -360,7 +365,8 @@ GAME_NAME_TO_GAME_CODE["thai-river"] = 92;
 GAME_NAME_TO_GAME_CODE["three-cz-pigs"] = 1727711;
 GAME_NAME_TO_GAME_CODE["ways-of-qilin"] = 106;
 GAME_NAME_TO_GAME_CODE["wings-iguazu"] = 1747549;
-GAME_NAME_TO_GAME_CODE["win-win-fish-prawn-crab"] = 129;
+
+GAME_NAME_TO_GAME_CODE["win-win-fpc"] = 129;
 GAME_NAME_TO_GAME_CODE["hotpot"] = 28;
 
 // 初始化PlatformName->GameCode的关系
@@ -442,6 +448,7 @@ PLATFORM_GAME_NAME_TO_GAME_CODE["lucky-clover"] = 1601012;
 PLATFORM_GAME_NAME_TO_GAME_CODE["myst-spirits"] = 1432733;
 PLATFORM_GAME_NAME_TO_GAME_CODE["plushie-frenzy"] = 25;
 PLATFORM_GAME_NAME_TO_GAME_CODE["wild-heist-co"] = 1568554;
+PLATFORM_GAME_NAME_TO_GAME_CODE["dreams-of-macau"] = 79;
 PLATFORM_GAME_NAME_TO_GAME_CODE["dragon-legend"] = 29;
 PLATFORM_GAME_NAME_TO_GAME_CODE["jurassic-kdm"] = 110;
 PLATFORM_GAME_NAME_TO_GAME_CODE["santas-gift-rush"] = 37;
@@ -456,11 +463,13 @@ PLATFORM_GAME_NAME_TO_GAME_CODE["mask-carnival"] = 118;
 PLATFORM_GAME_NAME_TO_GAME_CODE["medusa"] = 7;
 PLATFORM_GAME_NAME_TO_GAME_CODE["mermaid-riches"] = 102;
 PLATFORM_GAME_NAME_TO_GAME_CODE["mr-hallow-win"] = 35;
-PLATFORM_GAME_NAME_TO_GAME_CODE["muay-thai-champio"] = 64;
+
+PLATFORM_GAME_NAME_TO_GAME_CODE["muay-thai-champion"] = 64;
 PLATFORM_GAME_NAME_TO_GAME_CODE["ninja-raccoon"] = 1529867;
 PLATFORM_GAME_NAME_TO_GAME_CODE["ninja-vs-samurai"] = 59;
 PLATFORM_GAME_NAME_TO_GAME_CODE["prosperity-lion"] = 36;
-PLATFORM_GAME_NAME_TO_GAME_CODE["reel-lovey"] = 20;
+
+PLATFORM_GAME_NAME_TO_GAME_CODE["reel-love"] = 20;
 PLATFORM_GAME_NAME_TO_GAME_CODE["riofantasia"] = 1786529;
 PLATFORM_GAME_NAME_TO_GAME_CODE["rise-of-apollo"] = 101;
 PLATFORM_GAME_NAME_TO_GAME_CODE["shaolin-soccer"] = 67;
@@ -468,7 +477,8 @@ PLATFORM_GAME_NAME_TO_GAME_CODE["thai-river"] = 92;
 PLATFORM_GAME_NAME_TO_GAME_CODE["three-cz-pigs"] = 1727711;
 PLATFORM_GAME_NAME_TO_GAME_CODE["ways-of-qilin"] = 106;
 PLATFORM_GAME_NAME_TO_GAME_CODE["wings-iguazu"] = 1747549;
-PLATFORM_GAME_NAME_TO_GAME_CODE["win-win-fish-prawn-crab"] = 129;
+
+PLATFORM_GAME_NAME_TO_GAME_CODE["win-win-fpc"] = 129;
 PLATFORM_GAME_NAME_TO_GAME_CODE["hotpot"] = 28;
 
 let GAME_CODE_INFO = {};
@@ -549,6 +559,7 @@ GAME_CODE_INFO[1601012] = {GameCode:1601012, GameName:"lucky-clover", PlatformGa
 GAME_CODE_INFO[1432733] = {GameCode:1432733, GameName:"myst-spirits", PlatformGameName:"myst-spirits"};
 GAME_CODE_INFO[25] = {GameCode:25, GameName:"plushie-frenzy", PlatformGameName:"plushie-frenzy"};
 GAME_CODE_INFO[1568554] = {GameCode:1568554, GameName:"wild-heist-co", PlatformGameName:"wild-heist-co"};
+GAME_CODE_INFO[79] = {GameCode:79, GameName:"dreams-of-macau", PlatformGameName:"dreams-of-macau"};
 GAME_CODE_INFO[29] = {GameCode:29, GameName:"dragon-legend", PlatformGameName:"dragon-legend"};
 GAME_CODE_INFO[110] = {GameCode:110, GameName:"jurassic-kdm", PlatformGameName:"jurassic-kdm"};
 GAME_CODE_INFO[37] = {GameCode:37, GameName:"santas-gift-rush", PlatformGameName:"santas-gift-rush"};
@@ -563,11 +574,13 @@ GAME_CODE_INFO[118] = {GameCode:118, GameName:"mask-carnival", PlatformGameName:
 GAME_CODE_INFO[7] = {GameCode:7, GameName:"medusa", PlatformGameName:"medusa"};
 GAME_CODE_INFO[102] = {GameCode:102, GameName:"mermaid-riches", PlatformGameName:"mermaid-riches"};
 GAME_CODE_INFO[35] = {GameCode:35, GameName:"mr-hallow-win", PlatformGameName:"mr-hallow-win"};
-GAME_CODE_INFO[64] = {GameCode:64, GameName:"muay-thai-champio", PlatformGameName:"muay-thai-champio"};
+
+GAME_CODE_INFO[64] = {GameCode:64, GameName:"muay-thai-champion", PlatformGameName:"muay-thai-champion"};
 GAME_CODE_INFO[1529867] = {GameCode:1529867, GameName:"ninja-raccoon", PlatformGameName:"ninja-raccoon"};
 GAME_CODE_INFO[59] = {GameCode:59, GameName:"ninja-vs-samurai", PlatformGameName:"ninja-vs-samurai"};
 GAME_CODE_INFO[36] = {GameCode:36, GameName:"prosperity-lion", PlatformGameName:"prosperity-lion"};
-GAME_CODE_INFO[20] = {GameCode:20, GameName:"reel-lovey", PlatformGameName:"reel-lovey"};
+
+GAME_CODE_INFO[20] = {GameCode:20, GameName:"reel-love", PlatformGameName:"reel-love"};
 GAME_CODE_INFO[1786529] = {GameCode:1786529, GameName:"rio-fantasia", PlatformGameName:"riofantasia"};
 GAME_CODE_INFO[101] = {GameCode:101, GameName:"rise-of-apollo", PlatformGameName:"rise-of-apollo"};
 GAME_CODE_INFO[67] = {GameCode:67, GameName:"shaolin-soccer", PlatformGameName:"shaolin-soccer"};
@@ -575,7 +588,8 @@ GAME_CODE_INFO[92] = {GameCode:92, GameName:"thai-river", PlatformGameName:"thai
 GAME_CODE_INFO[1727711] = {GameCode:1727711, GameName:"three-cz-pigs", PlatformGameName:"three-cz-pigs"};
 GAME_CODE_INFO[106] = {GameCode:106, GameName:"ways-of-qilin", PlatformGameName:"ways-of-qilin"};
 GAME_CODE_INFO[1747549] = {GameCode:1747549, GameName:"wings-iguazu", PlatformGameName:"wings-iguazu"};
-GAME_CODE_INFO[129] = {GameCode:129, GameName:"win-win-fish-prawn-crab", PlatformGameName:"win-win-fish-prawn-crab"};
+
+GAME_CODE_INFO[129] = {GameCode:129, GameName:"win-win-fpc", PlatformGameName:"win-win-fpc"};
 GAME_CODE_INFO[28] = {GameCode:28, GameName:"hotpot", PlatformGameName:"hotpot"};
 
 exports.default = {
@@ -824,6 +838,9 @@ exports.default = {
         }
         else if (game_code === 1568554) {
             return wildheistcoController;
+        }
+        else if (game_code === 79) {
+            return dreamsofmacauController;
         }
         else if (game_code === 29) {
             return dragonlegendController;
@@ -1142,6 +1159,9 @@ exports.default = {
         }
         else if (game_code === 1568554) {
             return wildheistcojsonResult;
+        }
+        else if (game_code === 79) {
+            return dreamsofmacaujsonResult;
         }
         else if (game_code === 29) {
             return dragonlegendjsonResult;

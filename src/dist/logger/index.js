@@ -26,10 +26,10 @@ const logger = pino.default(
 
 
 // 重定向 console.log
-console.log = logger.info.bind(logger);
+//console.log = logger.info.bind(logger);
 
 // 重定向 console.error
-console.error = logger.error.bind(logger);
+//console.error = logger.error.bind(logger);
 
 exports.default = logger;
 console.log("111");

@@ -138,7 +138,7 @@ exports.default = {
                     let newbalance = transRet.user_balance;
                     let json = jsonData.json;
 
-                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id);
+                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
 
                     let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si)
                     if (history) {
@@ -162,7 +162,7 @@ exports.default = {
                         }
                     } else {
                         const steps = Object.keys(cartajson).length - 1;
-                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id);
+                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score, resultadospin.user_real_score);
                         resultadospin.idcall = calltwo[0].id;
                     }
                     
@@ -201,7 +201,7 @@ exports.default = {
                         }
 
                         const newbalance = transRet.user_balance;
-                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id);
+                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
                        if (propertyCount == 1) {
                             let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
                             if (history) {
