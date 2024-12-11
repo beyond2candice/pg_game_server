@@ -269,7 +269,7 @@ exports.default = {
                 sc: cartajsonValue.sc, 
                 snw: cartajsonValue.snw, 
                 st: cartajsonValue.st, 
-                twb: cartajsonValue.twb, 
+                twb: allfunctions_1.default.MultiplyValueWithFix(cartajsonValue.twb , betRate), 
                 wbn: cartajsonValue.wbn, 
                 wc: cartajsonValue.wc, 
                 wfg: cartajsonValue.wfg, 
