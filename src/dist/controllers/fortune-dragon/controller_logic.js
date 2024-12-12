@@ -122,7 +122,7 @@ exports.default = {
         };
     },
 
-    takeResultFromBet(user, agent, bet, user_score, token, gamename) {
+    takeResultFromBet(user, agent, bet, user_score, token, gamename, fb) {
         return __awaiter(this, void 0, void 0, function* () {
             let uid = user.id;
             const ret = yield allfunctions_1.default.getPendingCallOrGameRtpCall(user, agent, gamename, bet);
@@ -133,9 +133,18 @@ exports.default = {
                     return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, bet, ret, gamename, fortunedragonjsonresult.default.GetGameJsons());
                 }
             }
-            return yield allfunctions_1.default.getBetResultScore(user, agent, bet, user_score, token, gamename, fortunedragonjsonresult.default.GetGameJsons());
+            if(fb != "false")//翻倍 必中奖
+            {
+                return yield allfunctions_1.default.getBetResultScore_reward(user, agent, bet, user_score, token, gamename, fortunedragonjsonresult.default.GetGameJsons());
+            }
+            else
+            {
+                return yield allfunctions_1.default.getBetResultScore(user, agent, bet, user_score, token, gamename, fortunedragonjsonresult.default.GetGameJsons());
+            }
+            
         });
     },
+
     taskLostJsonData(json) {
         return fortunedragonlinhaperda.default.GetJson(json);
     },

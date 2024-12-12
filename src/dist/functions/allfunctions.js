@@ -1158,6 +1158,73 @@ exports.default = {
             return ret;
         });
    },
+//必中奖
+   getBetResultScore_reward(user, agent, bet, userScore, token, gameCode, gamejsons) {
+    return __awaiter(this, void 0, void 0, function*() {
+        const high = Object.keys(gamejsons).length - 1;
+        let retIdx = -1;
+        if (0 == high) {
+            retIdx = 0;
+        } else {
+            let RTP = this.getUserRtp(user, agent);//适当放大倍率
+         
+            if (Math.random() * 100 < -1) {
+                retIdx =  Math.floor(Math.random() * 500); 
+            } else {
+                let score = this.getScoreByRtp(RTP, gamejsons);
+                const indexMid = yield this.getJsonIndexFromGameJsons(gamejsons, score);
+                //console.log("bet=" + bet + " scoreRand=" + scoreRand + " score=" + score + " lowScore" + lowScore * RTP / bet+ " maxScore = " + maxScore * RTP / bet + " indexMid=" + indexMid);
+                let indexHight = indexMid + 10;
+                if (indexHight > high) {
+                    indexHight = high;
+                }
+                //获取score大于下注值的最小索引
+                const betRate = bet / gamejsons[0].Tb;
+                const betScore = (bet * RTP / 100) / betRate;
+                let indexMin = yield this.getFirstJsonIndexEqualOrGreaterThanScore(gamejsons, -betScore+0.01);
+                let indexLow = indexMid - 90;
+                if (indexLow < 0) {
+                    indexLow = 0;
+                } 
+                if(indexLow < indexMin)
+                {
+                    indexLow = indexMin;
+                }
+                if (indexLow >= indexHight) {
+                    retIdx = indexLow;
+                } else {
+                    const BIGWIN_RATE = Math.floor(((RTP - 60) /  2000) * 100);
+                    const randVal = Math.random() * 10000;
+                    if (randVal < BIGWIN_RATE) {
+                        retIdx = indexHight + Math.floor(Math.random() * (high - indexHight));
+                    } else
+                    {
+                        if (randVal < (RTP*100 - BIGWIN_RATE)/2) {
+                            retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow)); 
+                        } else {
+                            let index = yield this.getJsonIndexFromGameJsons(gamejsons, 0);
+                            retIdx =indexLow + Math.floor(Math.random() * (index - indexLow))
+                        }
+                    }                  
+                }
+            }
+        }
+
+        const result = gamejsons[retIdx];
+        let ret = {
+            result:result.Type,
+            gamecode:gameCode,
+            json:result.Index,
+            Idx:retIdx,
+            call_rtp_id:0,
+            from_reward_pool:0,
+            reward_pool_score:0
+        }    
+
+        //console.log("idx=" + retIdx + " ret=" + JSON.stringify(ret));
+        return ret;
+    });
+},
    getBetResultScore(user, agent, bet, userScore, token, gameCode, gamejsons) {
         return __awaiter(this, void 0, void 0, function*() {
             if (process.env.TEST_MODE === "1") {

@@ -70,6 +70,7 @@ exports.default = {
         return __awaiter(this, void 0, void 0, function* () {
             let cs = req.body.cs;
             let ml = req.body.ml;
+            let fb = req.body.fb;
             const token = req.body.atk;
 
             function gerarNumeroUnico() {
@@ -83,7 +84,11 @@ exports.default = {
 				}
 				const user = userRet[0];
                 let bet = cs * ml * fortunedragoncontrol_logic.default.getMxl();
-                console.log(bet);
+                if(fb != "false")
+                {
+                    bet = bet * fortunedragoncontrol_logic.default.getMxl();
+                }
+               // console.log(bet + "|" + fb);
                 const gamename = "fortune-dragon";
                 const game_code = 1695365;
                 const agentRet = yield allfunctions_1.default.getagentbyid(user.agentid);
@@ -105,7 +110,7 @@ exports.default = {
                     res.send(semsaldo);
                     return false;
                 }
-                const resultadospin = yield fortunedragoncontrol_logic.default.takeResultFromBet(user, agent, bet, saldoatual, token, gamename);
+                const resultadospin = yield fortunedragoncontrol_logic.default.takeResultFromBet(user, agent, bet, saldoatual, token, gamename,fb);
                 if (resultadospin.result === constans.LOST) {//输
                     const perdajson = fortunedragoncontrol_logic.default.taskLostJsonData(resultadospin.json);
                     const jsonData = fortunedragoncontrol_logic.default.getLostJson(perdajson, ml, cs, bet, saldoatual)
