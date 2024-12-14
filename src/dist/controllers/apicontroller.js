@@ -1298,6 +1298,28 @@ exports.default = {
             });
         },
 
+        login_test_user(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const uid_start = parseInt(req.body.uid_start) || 0;
+                    const num = parseInt(req.body.num) || 1;
+
+                    const users= yield allfunctions_1.default.getuserbystartid(uid_start, num);
+                    if (!Array.isArray(users) || users.length < 1) {
+                        return res.send({ status: 0});
+                    }
+                    const atk_lst = users.map(user => ({
+                        atk: user.atk,
+                        score:user.saldo,
+                    }));
+                   return res.send({status:1, users:atk_lst});
+                } catch (error) {
+                    console.log(error);
+                    return res.send({ status: 0, msg: "The acquisition of the URL failed" });
+                }
+            });
+        },
+
         
 
 

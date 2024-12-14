@@ -217,6 +217,12 @@ exports.default = {
             return res[0];
         });
     },
+    getuserbystartid(start_id, num) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield database_1.default.query("SELECT * FROM users WHERE id >= ? LIMIT ?", [start_id, num]);
+            return res[0];
+        });
+    },
      updateUserLostBetInfo(user, agent, game_id, newbalance, bet, rtp_call_id, from_reward_pool, real_reward_pool_score) {
         return __awaiter(this, void 0, void 0, function* () {
             const user_code = user.username;
