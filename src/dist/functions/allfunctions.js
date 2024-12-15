@@ -798,9 +798,9 @@ exports.default = {
                         Type:1,
                         Result:res[0][0][0]
                     }
-                } else if (res[0][0][0].hasOwnProperty("reward_rtp") && res[0][0][0].hasOwnProperty("pool_reward_sore")) {
+                } else if (res[0][0][0].hasOwnProperty("reward_rtp") && res[0][0][0].hasOwnProperty("pool_reward_score")) {
                     let reward_rtp = res[0][0][0].hasOwnProperty("reward_rtp");
-                    let reward_score = res[0][0][0].hasOwnProperty("pool_reward_sore");
+                    let reward_score = res[0][0][0].hasOwnProperty("pool_reward_score");
                     if (reward_rtp > 0 && reward_score > 0) {
                         return {
                             Type:2,
@@ -1016,7 +1016,7 @@ exports.default = {
 
     getBetResultByGameRtpCallType2(user, agent, bet, rtp_call, game_code, gamejsons) {
         let rtp = rtp_call.reward_rtp || 0;
-        let reward_score = rtp_call.pool_reward_sore || 0;
+        let reward_score = rtp_call.pool_reward_score || 0;
         let score = this.getScoreByRtp(rtp, gamejsons);
         if (score > reward_score) {
             score = reward_score;
@@ -1044,7 +1044,7 @@ exports.default = {
             Idx:idx,
             call_rtp_id:rtp_call.id,
             from_reward_pool:1,
-            reward_pool_score:rtp_call.pool_reward_sore,
+            reward_pool_score:rtp_call.pool_reward_score,
             user_real_score: Math.floor(result.WinScore/RESULT_SCORE_SCALE) * betRate
         }    
     },
@@ -1241,7 +1241,11 @@ exports.default = {
             if (0 == high) {
                 retIdx = 0;
             } else {
-                const RTP = this.getUserRtp(user, agent);
+                let RTP = this.getUserRtp(user, agent);
+                if (RTP > 10) {
+                    RTP -= 10;
+                }
+
                 if (Math.random() * 100 < 100-RTP) {
                     retIdx =  Math.floor(Math.random() * 500); 
                 } else {
