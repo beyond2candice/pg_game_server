@@ -216,8 +216,18 @@ exports.default = {
         if (lwCfg) {
             lw = {};
             for (var i in lwCfg) {
-                lw[i] = allfunctions_1.default.MultiplyValueWithFix(lwCfg[i], betRate);
-            }
+                let slw =  _.cloneDeep(lwCfg[i]);
+                 if (Array.isArray(slw)) {
+                     for (var j=0; j<slw.length; j++) {
+                         slw[j] = allfunctions_1.default.MultiplyValueWithFix(slw[j] , betRate);
+                     }
+                     lw[i] = slw;
+                 } 
+                 else
+                 {
+                     lw[i] = allfunctions_1.default.MultiplyValueWithFix(lwCfg[i], betRate);
+                 }
+             }
         }
         
         let json = {
