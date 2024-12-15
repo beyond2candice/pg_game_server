@@ -83,13 +83,15 @@ BEGIN
     DECLARE found_bet FLOAT;
     DECLARE pool_total_score FLOAT;
     DECLARE pool_reward_score_start FLOAT;
+    DECLARE pool_reward_score_end FLOAT;
     DECLARE game_big_reward_rtp SMALLINT;
     DECLARE user_big_reward_rate_rtp SMALLINT;
     DECLARE game_lower_reward_rtp SMALLINT;
     DECLARE user_lower_reward_rate_rtp SMALLINT;
     DECLARE reward_rtp SMALLINT;
-    DECLARE pool_reward_sore FLOAT;
+    DECLARE pool_reward_score FLOAT;
     DECLARE game_rtp SMALLINT;
+    DECLARE pool_reward_status TINYINT;
 
     SELECT id INTO call_id FROM calls WHERE iduser = in_user_id AND status = 'pending' AND gamecode = in_game_code LIMIT 1;
     IF call_id IS NOT NULL THEN
@@ -105,17 +107,17 @@ BEGIN
                 SELECT NULL;
             END IF;
         ELSE
-            SELECT `total_score`, `begin_reward_score`, `game_rtp_big_reward`, `user_rtp_big_reward_rate`, `game_rtp_lower_reward`, `user_rtp_lower_reward_rate`, FLOOR(`game_total_win`*100/`game_total_bet`)  INTO pool_total_score, pool_reward_score_start, game_big_reward_rtp, user_big_reward_rate_rtp, game_lower_reward_rtp, user_lower_reward_rate_rtp, game_rtp FROM global_score_pool WHERE id = 1;
+            SELECT `total_score`, `begin_reward_score`, `end_reward_score`, `game_rtp_big_reward`, `user_rtp_big_reward_rate`, `game_rtp_lower_reward`, `user_rtp_lower_reward_rate`, FLOOR(`game_total_win`*100/`game_total_bet`), `reward_status`  INTO pool_total_score, pool_reward_score_start, pool_reward_score_end, game_big_reward_rtp, user_big_reward_rate_rtp, game_lower_reward_rtp, user_lower_reward_rate_rtp, game_rtp, pool_reward_status FROM global_score_pool WHERE id = 1;
             -- 池积分大于1000受控
-            IF pool_total_score >= pool_reward_score_start THEN
+            IF (pool_total_score >= pool_reward_score_start) or (pool_reward_status = 1 and pool_total_score >= pool_reward_score_end) THEN
                 -- 玩家rtp小于30给大
                 IF game_rtp <= game_big_reward_rtp THEN
                     SELECT in_user_rtp * user_big_reward_rate_rtp INTO  reward_rtp; 
                     IF reward_rtp > 100 THEN 
-                        SELECT pool_total_score INTO  pool_reward_sore;
-                        IF pool_reward_sore <= pool_total_score THEN
-                            UPDATE global_score_pool SET `total_score` = `total_score` - pool_reward_sore WHERE id = 1; 
-                            SELECT reward_rtp, pool_reward_sore;
+                        SELECT pool_total_score INTO  pool_reward_score;
+                        IF pool_reward_score <= pool_total_score THEN
+                            UPDATE global_score_pool SET `total_score` = `total_score` - pool_reward_score, `reward_status` = 1 WHERE id = 1; 
+                            SELECT reward_rtp, pool_reward_score;
                         ELSE
                             SELECT pool_total_score,game_rtp,game_big_reward_rtp, game_lower_reward_rtp, 1, NULL;
                         END IF;
@@ -125,10 +127,10 @@ BEGIN
                 ELSEIF game_rtp <= game_lower_reward_rtp THEN 
                     SELECT in_user_rtp * user_lower_reward_rate_rtp INTO  reward_rtp;  
                     IF reward_rtp > 100 THEN 
-                        SELECT pool_total_score INTO  pool_reward_sore;
-                        IF pool_reward_sore <= pool_total_score THEN
-                            UPDATE global_score_pool SET `total_score` = `total_score` - pool_reward_sore WHERE id = 1; 
-                            SELECT reward_rtp, pool_reward_sore;
+                        SELECT pool_total_score INTO  pool_reward_score;
+                        IF pool_reward_score <= pool_total_score THEN
+                            UPDATE global_score_pool SET `total_score` = `total_score` - pool_reward_score, `reward_status` = 1 WHERE id = 1; 
+                            SELECT reward_rtp, pool_reward_score;
                         ELSE
                             SELECT pool_total_score,game_rtp,game_big_reward_rtp, game_lower_reward_rtp, 2, NULL;
                         END IF;
@@ -139,6 +141,9 @@ BEGIN
                     SELECT pool_total_score,game_rtp,game_big_reward_rtp, game_lower_reward_rtp, 4, NULL;
                 END IF;
             ELSE
+                IF  pool_reward_status = 1 THEN
+                    UPDATE global_score_pool SET `reward_status` = 0 WHERE id = 1; 
+                END IF;
                 SELECT pool_total_score,game_rtp,game_big_reward_rtp, game_lower_reward_rtp, 5, NULL;
             END IF;
         END IF;
