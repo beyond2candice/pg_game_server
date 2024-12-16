@@ -359,6 +359,16 @@ exports.default = {
                     });
                     return;
                 }
+                const startsWithBracket = user_codes.startsWith("[");
+                const endsWithBracket = user_codes.endsWith("]");
+                if (!startsWithBracket || !endsWithBracket)
+                {
+                    res.send({
+                        status: 0,
+                        msg: "Invalid JSON"
+                    });
+                    return;
+                }
                 const strlist = user_codes.slice(1, -1);
                 console.log("agent[" + agent_token + "," + agent_code + "]" + " set user " + strlist + " rtp " + rtp);
                 let agents = yield allfunctions_1.default.getagentbyagentToken(agent_token);
