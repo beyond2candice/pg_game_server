@@ -102,7 +102,7 @@ exports.default = {
                                  //launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
                           //  }
                          //   else{
-                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
+                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
                          //   }
                            
 
@@ -135,7 +135,7 @@ exports.default = {
                          //   }
                         //    else
                           //  {
-                                launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
+                            launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
                          //   }
                         
                     }
