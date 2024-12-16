@@ -424,8 +424,17 @@ exports.default = {
     },
     updateBatchUserRtp(user_code_lst, agent_id, rtp) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield database_1.default.query("UPDATE users set rtp = ? WHERE agentid = ? and username IN (?)", [rtp, agent_id, user_code_lst]);
-            return res[0];
+            let query1 = "UPDATE users set rtp =" + rtp + " WHERE agentid =" + agent_id + " and username IN(" + user_code_lst + ")";
+           // console.log(query1)
+            //  try {
+          //        const [results, fields] = yield database_1.default.query(query1);
+            //      console.log("sql relust", results);
+            //  } catch (err) {
+           //       console.log("err =", err);
+           //   }
+               
+          // const res = yield database_1.default.query("UPDATE users set rtp = ? WHERE agentid = ? and username IN (?)", [rtp, agent_id, user_code_lst]);
+            return yield database_1.default.query(query1);
         });
     },
     getcallbyid(id) {
