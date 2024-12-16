@@ -316,8 +316,8 @@ exports.default = {
 		routes.post("/game-api/mr-hallow-win/v2/GameInfo/Get", mrhallowwinController.default.getGameInfo)
 		routes.post("/game-api/mr-hallow-win/v2/Spin", mrhallowwinController.default.spin)
 		const muaythaichampioController = __importDefault(require("../controllers/muay-thai-champio/gameController"));
-		routes.post("/game-api/muay-thai-champio/v2/GameInfo/Get", muaythaichampioController.default.getGameInfo)
-		routes.post("/game-api/muay-thai-champio/v2/Spin", muaythaichampioController.default.spin)
+		routes.post("/game-api/muay-thai-champion/v2/GameInfo/Get", muaythaichampioController.default.getGameInfo)
+		routes.post("/game-api/muay-thai-champion/v2/Spin", muaythaichampioController.default.spin)
 		const ninjaraccoonController = __importDefault(require("../controllers/ninja-raccoon/gameController"));
 		routes.post("/game-api/ninja-raccoon/v2/GameInfo/Get", ninjaraccoonController.default.getGameInfo)
 		routes.post("/game-api/ninja-raccoon/v2/Spin", ninjaraccoonController.default.spin)
@@ -328,8 +328,8 @@ exports.default = {
 		routes.post("/game-api/prosperity-lion/v2/GameInfo/Get", prosperitylionController.default.getGameInfo)
 		routes.post("/game-api/prosperity-lion/v2/Spin", prosperitylionController.default.spin)
 		const reelloveyController = __importDefault(require("../controllers/reel-lovey/gameController"));
-		routes.post("/game-api/reel-lovey/v2/GameInfo/Get", reelloveyController.default.getGameInfo)
-		routes.post("/game-api/reel-lovey/v2/Spin", reelloveyController.default.spin)
+		routes.post("/game-api/reel-love/v2/GameInfo/Get", reelloveyController.default.getGameInfo)
+		routes.post("/game-api/reel-love/v2/Spin", reelloveyController.default.spin)
 		const riofantasiaController = __importDefault(require("../controllers/rio-fantasia/gameController"));
 		routes.post("/game-api/rio-fantasia/v2/GameInfo/Get", riofantasiaController.default.getGameInfo)
 		routes.post("/game-api/rio-fantasia/v2/Spin", riofantasiaController.default.spin)
@@ -339,6 +339,7 @@ exports.default = {
 		const shaolinsoccerController = __importDefault(require("../controllers/shaolin-soccer/gameController"));
 		routes.post("/game-api/shaolin-soccer/v2/GameInfo/Get", shaolinsoccerController.default.getGameInfo)
 		routes.post("/game-api/shaolin-soccer/v2/Spin", shaolinsoccerController.default.spin)
+		routes.post("/game-api/shaolin-soccer/v2/Spin/Free/PlayerSelection", shaolinsoccerController.default.spin)
 		const thairiverController = __importDefault(require("../controllers/thai-river/gameController"));
 		routes.post("/game-api/thai-river/v2/GameInfo/Get", thairiverController.default.getGameInfo)
 		routes.post("/game-api/thai-river/v2/Spin", thairiverController.default.spin)
@@ -357,5 +358,8 @@ exports.default = {
 		const hotpotController = __importDefault(require("../controllers/hotpot/gameController"));
 		routes.post("/game-api/hotpot/v2/GameInfo/Get", hotpotController.default.getGameInfo)
 		routes.post("/game-api/hotpot/v2/Spin", hotpotController.default.spin)
+		const dreamsofmacauController = __importDefault(require("../controllers/dreams-of-macau/gameController"));
+		routes.post("/game-api/dreams-of-macau/v2/GameInfo/Get", dreamsofmacauController.default.getGameInfo)
+		routes.post("/game-api/dreams-of-macau/v2/Spin", dreamsofmacauController.default.spin)
 	}
 }
