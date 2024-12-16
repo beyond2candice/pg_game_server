@@ -20,16 +20,6 @@ const moment = require('moment');
 const cron = require('node-cron')
 const _ = require('lodash');
 
-let TEST_CONTROL_LOST_RATE = 57; //输概率
-let TEST_CONTROL_GANHO_RATE = 20; //小奖概率
-let TEST_CONTROL_GANHO_BIG_RATE = 15; //中奖概率
-let TEST_CONTROL_BONUS_RATE = 8; //大奖概率
-
-let GANHO_SCORE_RATE_END = 10;  //小奖倍数结束，中奖开始
-let NORMAL_GANHO_SCORE_RATE_END = 80; //中奖倍数结束，大奖开始
-
-let TEST_CONTROL_BIG_WIN_NUM = 5;
-
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -410,8 +400,8 @@ exports.default = {
     },
     updateBatchUserRtp(user_code_lst, agent_id, rtp) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield database_1.default.query("UPDATE users set rtp = ? WHERE agentid = ? and username IN (?)", [rtp, agent_id, user_code_lst]);
-            return res[0];
+            let query1 = "UPDATE users set rtp =" + rtp + " WHERE agentid =" + agent_id + " and username IN(" + user_code_lst + ")";
+            return yield database_1.default.query(query1);
         });
     },
     getcallbyid(id) {
@@ -806,43 +796,14 @@ exports.default = {
         return 0;
    },
    getJsonIndexRange(gamejsons, score) {
-        let low = 0;
-        let high = 0;
-        if (score < 0) {
-            low = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score - 0.01);
-            high = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score);
-        } else {
-            low = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score);
-            high = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score + 0.01);
-        }
+        let low = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score);
+        let high = this.getFirstJsonIndexEqualOrLessThanScore(gamejsons, score + 0.01);
         return {
             Low: low,
             High: high -1
         };
    },
 
-   getJsonIndexRangeByScorRange(gamejsons, score_min, score_max) {
-    let idxRange = {Low:0, High:0}; 
-    let lowRange = {Low:0, High:0};
-    let highRange = {Low:0, High:0};
-    if (score_min <= score_max) {
-        lowRange = this.getJsonIndexRange(gamejsons, score_min);
-        highRange = this.getJsonIndexRange(gamejsons, score_max);
-
-    } else if (score_min >score_min){
-        lowRange = this.getJsonIndexRange(gamejsons, score_max);
-        highRange = this.getJsonIndexRange(gamejsons, score_min);
-    }
-    let low = lowRange.Low;
-    if (low > lowRange.High) {
-        low = lowRange.High;
-    }  
-    let high = highRange.Low;
-    if (high < highRange.High) {
-        high =  highRange.High
-    }
-    return {Low:low, High:high};
-   },
    getJsonScoreset(gamejsons, gameCode) {
         let scoreSetCache = GAME_JSON_SCORE_SET_CACHE[gameCode];
         if (scoreSetCache) {
@@ -930,107 +891,9 @@ exports.default = {
 
         return parseInt(agent.probganhortp);
     },
-   getBetResultScoreTest(user, agent, bet, userScore, token, gameCode, gamejsons) {
-        return __awaiter(this, void 0, void 0, function*() {
-
-            const jsonscoreset = yield exports.default.getJsonScoreset(gamejsons, gameCode);
-            if (!Array.isArray(jsonscoreset) || jsonscoreset.length < 1) {
-                const result = gamejsons[0];
-                return {
-                    result:result.Type,
-                    gamecode:gameCode,
-                    json:result.Index,
-                    Idx:0,
-                    call_rtp_id:0
-                }    
-            }
-            //5 +1 + 2
-            let target_score = 0;
-            if (jsonscoreset.length < 8)  {
-                const idx = Math.floor(Math.random() * jsonscoreset.length) 
-                target_score = jsonscoreset[idx];
-            } else {
-                let rate = Math.floor(Math.random() * 100);
-                const OTHER_WIN_NUM = jsonscoreset.length - TEST_CONTROL_BIG_WIN_NUM - 1;   
-                const NORMAL_WIN_NUM = Math.floor(OTHER_WIN_NUM / 2); 
-                const SMALL_WIN_NUM = OTHER_WIN_NUM - NORMAL_WIN_NUM;
-                if (rate < TEST_CONTROL_LOST_RATE) {
-                    target_score = jsonscoreset[0];
-                } else if (rate < TEST_CONTROL_LOST_RATE + TEST_CONTROL_GANHO_RATE) {
-                    const idx = 1 + Math.floor(Math.random() * SMALL_WIN_NUM);
-                    target_score = jsonscoreset[idx]; 
-                } else if (rate < TEST_CONTROL_LOST_RATE + TEST_CONTROL_GANHO_RATE + TEST_CONTROL_GANHO_BIG_RATE) {
-                    //中赢
-                    const idx = 1 + SMALL_WIN_NUM + Math.floor(Math.random() * NORMAL_WIN_NUM);
-                    target_score = jsonscoreset[idx]; 
-                } else {
-                    const idx = jsonscoreset.length - TEST_CONTROL_BIG_WIN_NUM + Math.floor(Math.random() * TEST_CONTROL_BIG_WIN_NUM);
-                    target_score = jsonscoreset[idx]; 
-                }
-            }
-
-            const ret = this.getJsonIndexRange(gamejsons, target_score);
-            let idx = -1;
-            if (ret.Low < ret.High) {
-                idx = ret.Low + Math.floor(Math.random()*(ret.High - ret.Low + 1));
-            } else {
-                idx = ret.Low;
-            }
-            if (!(idx >= 0)) {
-                idx = 0;
-            }
-
-            const result = gamejsons[idx];
-            return {
-                result:result.Type,
-                gamecode:gameCode,
-                json:result.Index,
-                Idx:idx,
-                call_rtp_id:0
-            }    
-
-            return ret;
-        });
-   },
-
-   getBetResultScoreTest0(user, agent, bet, userScore, token, gameCode, gamejsons) {
-        return __awaiter(this, void 0, void 0, function*() {
-
-            let idxRange = {Low:0, High:0};
-            const Tb = gamejsons[0].Tb;
-            let rate = Math.floor(Math.random() * 100);
-            if (rate < TEST_CONTROL_LOST_RATE) {
-                idxRange = this.getJsonIndexRangeByScorRange(gamejsons, -Tb, 0);
-            } else if (rate < TEST_CONTROL_LOST_RATE + TEST_CONTROL_GANHO_RATE) {
-                idxRange = this.getJsonIndexRangeByScorRange(gamejsons, -Tb+0.03, GANHO_SCORE_RATE_END*Tb - 0.01);
-            } else if (rate < TEST_CONTROL_LOST_RATE + TEST_CONTROL_GANHO_RATE + TEST_CONTROL_GANHO_BIG_RATE) {
-                idxRange = this.getJsonIndexRangeByScorRange(gamejsons, GANHO_SCORE_RATE_END*Tb, NORMAL_GANHO_SCORE_RATE_END*Tb - 0.01);
-            } else {
-                idxRange = this.getJsonIndexRangeByScorRange(gamejsons, NORMAL_GANHO_SCORE_RATE_END*Tb, 10000*Tb);
-            }
-            let idx = 0; 
-            if (idxRange.Low <= idxRange.High) {
-                idx = idxRange.Low + Math.floor(Math.random() *(idxRange.High - idxRange.Low + 1));
-            } else if (idxRange.Low < idxRange.High ) {
-                idx = idxRange.High + Math.floor(Math.random() *(idxRange.Low- idxRange.High + 1));
-            }
-            const result = gamejsons[idx];
-            return {
-                result:result.Type,
-                gamecode:gameCode,
-                json:result.Index,
-                Idx:idx,
-                call_rtp_id:0
-            }    
-
-            return ret;
-        });
-   },
    getBetResultScore(user, agent, bet, userScore, token, gameCode, gamejsons) {
         return __awaiter(this, void 0, void 0, function*() {
-            if (process.env.TEST_MODE === "1") {
-                return this.getBetResultScoreTest0(user, agent, bet, userScore, token, gameCode, gamejsons)
-            }
+
             const high = Object.keys(gamejsons).length - 1;
             let retIdx = -1;
             if (0 == high) {
@@ -1493,44 +1356,6 @@ function TestRtpRandom() {
         const fortunemousejsonresult = __importDefault(require("../jsons/fortune-mouse/jsonresult"))
         const fortuneoxjsonresult = __importDefault(require("../jsons/fortune-ox/jsonresult"))
         const fortunetigerjsonresult = __importDefault(require("../jsons/fortune-tiger/jsonresult"))
-        const fortunerabbitjsonresult = __importDefault(require("../jsons/fortune-rabbit/jsonresult"))
-        {
-            let lost = 0;
-            let win = 0;
-            let bigwin = 0;
-            for (var i=0; i<100; i++) {
-                //let result = yield exports.default.getBetResultScoreTest0({}, {}, 0.4, 100, "", 1695365, fortunedragonjsonresult.default.GetGameJsons());
-                let result = yield exports.default.getBetResultScore({}, {}, 0.4, 100, "", 1695365, fortunedragonjsonresult.default.GetGameJsons());
-                if (result.result == 0) {
-                   lost++; 
-                } else if (result.result == 1) {
-                    win++;
-                } else if (result.result == 2) {
-                    bigwin++;
-                }
-            }
-            console.log("lost=" + lost + " win=" + win + " bigwin=" + bigwin);
-        }
-        return
-        {
-            let jsonscoreset0 = yield exports.default.getJsonScoreset(fortunedragonjsonresult.default.GetGameJsons(), 1695365);
-            let jsonscoreset1 = yield exports.default.getJsonScoreset(fortunemousejsonresult.default.GetGameJsons(), 68);
-            let jsonscoreset2 = yield exports.default.getJsonScoreset(fortuneoxjsonresult.default.GetGameJsons(), 98);
-            let jsonscoreset3 = yield exports.default.getJsonScoreset(fortunetigerjsonresult.default.GetGameJsons(), 126);
-            let jsonscoreset4 = yield exports.default.getJsonScoreset(fortunerabbitjsonresult.default.GetGameJsons(), 1543462);
-            console.log("11");
-
-        }
-        const jsonscoreset = yield exports.default.getJsonScoreset(fortunetigerjsonresult.default.GetGameJsons(), 126);
-        for (var i=0; i<jsonscoreset.length; i++) {
-            if (jsonscoreset[i] > 0) {
-                const rtptest = Math.floor(10000 * (jsonscoreset[i]/3));
-                yield exports.default.getBetResultByGameRtpCall({}, {}, {rtp:rtptest, bet:0.40}, "fortune_tiger", fortunetigerjsonresult.default.GetGameJsons());
-                yield exports.default.getBetResultByGameRtpCall({}, {}, {rtp:rtptest - 10, bet:0.40}, "fortune_tiger", fortunetigerjsonresult.default.GetGameJsons());
-                yield exports.default.getBetResultByGameRtpCall({}, {}, {rtp:rtptest + 10, bet:0.40}, "fortune_tiger", fortunetigerjsonresult.default.GetGameJsons());
-            }
-        }
-
         yield TestGameRtpRandomJson("fortunedragon", fortunedragonjsonresult.default.GetGameJsons());
         yield TestGameRtpRandomJson("fortunemouse", fortunemousejsonresult.default.GetGameJsons());
         yield TestGameRtpRandomJson("fortuneox", fortuneoxjsonresult.default.GetGameJsons());

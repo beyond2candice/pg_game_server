@@ -304,7 +304,7 @@ exports.default = {
                 const provider_code = req.body.provider_code;
                 const user_code = req.body.user_code;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp <=0) {
+                if (rtp < 0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
@@ -352,15 +352,25 @@ exports.default = {
                 const agent_token = req.body.agent_token;
                 const user_codes = req.body.user_codes;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp <=0) {
+                if (rtp < 0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
                     });
                     return;
                 }
-
-                console.log("agent[" + agent_token + "," + agent_code + "]" + " set user " + user_codes + " rtp " + rtp);
+                const startsWithBracket = user_codes.startsWith("[");
+                const endsWithBracket = user_codes.endsWith("]");
+                if (!startsWithBracket || !endsWithBracket)
+                {
+                    res.send({
+                        status: 0,
+                        msg: "Invalid JSON"
+                    });
+                    return;
+                }
+                const strlist = user_codes.slice(1, -1);
+                console.log("agent[" + agent_token + "," + agent_code + "]" + " set user " + strlist + " rtp " + rtp);
                 let agents = yield allfunctions_1.default.getagentbyagentToken(agent_token);
                 if (!agents || agents.length == 0 || agents[0].agentCode != agent_code) {
                     res.send({
@@ -369,7 +379,7 @@ exports.default = {
                     });
                     return;
                 }
-                yield allfunctions_1.default.updateBatchUserRtp(user_codes, agents[0].id, rtp);
+                yield allfunctions_1.default.updateBatchUserRtp(strlist, agents[0].id, rtp);
                 res.send({
                     status: 1,
                     changed_rtp:rtp 
