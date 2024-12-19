@@ -222,7 +222,13 @@ exports.default = {
         const betRate = bet / cartajsonValue.tbb;
         for (var i = step + 1; i < propertyCount; i++) 
         {
-            prevBalance = prevBalance + allfunctions_1.default.MultiplyValueWithFix(cartajson[i].np-cartajson[i].tb , betRate);
+            if(i === propertyCount - 1)
+            {
+                prevBalance = prevBalance + allfunctions_1.default.MultiplyValueWithFix(cartajson[i].np - cartajsonValue.tb, betRate);
+            }
+            else{
+                prevBalance = prevBalance + allfunctions_1.default.MultiplyValueWithFix(cartajson[i].np, betRate);
+            }
         }
         //prevBalance = prevBalance + allfunctions_1.default.MultiplyValueWithFix(cartajsonValue.aw-cartajsonValue.tbb , betRate);
         
