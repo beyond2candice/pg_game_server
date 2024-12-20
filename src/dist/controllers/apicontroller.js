@@ -135,7 +135,7 @@ exports.default = {
                          //   }
                         //    else
                           //  {
-                            launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                            launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
                          //   }
                         
                     }
