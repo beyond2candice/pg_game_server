@@ -1034,7 +1034,7 @@ exports.default = {
         }
         const betRate = bet / gamejsons[0].Tb;
         console.log("rtp=" + rtp + " score=" + score + " betRate=" + betRate);
-        const ret = this.getJsonIndexRange(gamejsons, score);
+        const ret = this.getJsonIndexRange(gamejsons, score/betRate);
         let idx = -1;
         if (ret.Low < ret.High) {
             idx = ret.Low + Math.floor(Math.random()*(ret.High - ret.Low + 1));
