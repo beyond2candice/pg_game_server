@@ -70,6 +70,7 @@ exports.default = {
         return __awaiter(this, void 0, void 0, function* () {
             let cs = req.body.cs;
             let ml = req.body.ml;
+            let fb = req.body.fb;
             const token = req.body.atk;
 
             function gerarNumeroUnico() {
@@ -83,7 +84,11 @@ exports.default = {
 				}
 				const user = userRet[0];
                 let bet = cs * ml * fortunedragoncontrol_logic.default.getMxl();
-                console.log(bet);
+                if(fb != "false")
+                {
+                    bet = bet * fortunedragoncontrol_logic.default.getMxl();
+                }
+               // console.log(bet + "|" + fb);
                 const gamename = "fortune-dragon";
                 const game_code = 1695365;
                 const agentRet = yield allfunctions_1.default.getagentbyid(user.agentid);
@@ -105,7 +110,7 @@ exports.default = {
                     res.send(semsaldo);
                     return false;
                 }
-                const resultadospin = yield fortunedragoncontrol_logic.default.takeResultFromBet(user, agent, bet, saldoatual, token, gamename);
+                const resultadospin = yield fortunedragoncontrol_logic.default.takeResultFromBet(user, agent, bet, saldoatual, token, gamename,fb);
                 if (resultadospin.result === constans.LOST) {//输
                     const perdajson = fortunedragoncontrol_logic.default.taskLostJsonData(resultadospin.json);
                     const jsonData = fortunedragoncontrol_logic.default.getLostJson(perdajson, ml, cs, bet, saldoatual)
@@ -138,7 +143,7 @@ exports.default = {
                     let newbalance = transRet.user_balance;
                     let json = jsonData.json;
 
-                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id);
+                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
 
                     let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si)
                     if (history) {
@@ -183,7 +188,7 @@ exports.default = {
 
                     const newbalance = transRet.user_balance;
                     const json = jsonData.json;
-                    yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, valorganho, resultadospin.call_rtp_id);
+                    yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, valorganho, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
                     let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
                     if (history) {
                         yield allfunctions_1.default.insertGameHistory(user, history)
@@ -206,7 +211,7 @@ exports.default = {
                         }
                     } else {
                         const steps = Object.keys(cartajson).length - 1;
-                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id);
+                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score, resultadospin.user_real_score);
                         resultadospin.idcall = calltwo[0].id;
                     }
                     
@@ -245,7 +250,7 @@ exports.default = {
                         }
 
                         const newbalance = transRet.user_balance;
-                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id);
+                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
                        if (propertyCount == 1) {
                             let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
                             if (history) {

@@ -138,7 +138,7 @@ exports.default = {
                     let newbalance = transRet.user_balance;
                     let json = jsonData.json;
 
-                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id);
+                    yield allfunctions_1.default.updateUserLostBetInfo(user, agent, game_code, newbalance, bet, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
 
                     let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si)
                     if (history) {
@@ -149,6 +149,50 @@ exports.default = {
                  
                     res.send(json);
                 } 
+                
+                else if (resultadospin.result == constans.WIN) {
+                    const ganhojson = dinerdelightscontrol_logic.default.taskWinJsonData(resultadospin.json)
+                    const jsonData = dinerdelightscontrol_logic.default.GetWinJson(ganhojson, 0, ml, cs, bet, saldoatual);
+                    const valorganho = jsonData.valorganho;
+
+                    const txnid = (0, uuid_1.v4)();
+                    const dataFormatada = (0, moment_1.default)().toISOString();
+                    let transRet = yield apicontroller_1.default.callbackgame(agent, {
+
+                        agent_code: agent.agentCode,
+                        agent_secret: agent.secretKey,
+                        agent_balance:0,
+                        user_code: user.username,
+                        user_balance: user.saldo,
+                        game_type: "slot",
+                        slot: {
+                            provider_code: "PGSOFT",
+                            game_code: gamename,
+                            type: "BASE",
+                            bet_money: bet,
+                            win_money: valorganho,
+                            txn_id: `${txnid}`,
+                            txn_type: "debit_credit",
+                            created_at: dataFormatada,
+                        }
+                    });
+                    if (transRet.status !== 1) {
+                        res.send(yield dinerdelightsnotcash.default.notcash(saldoatual, cs, ml));
+                        return false;
+                    }
+
+                    const newbalance = transRet.user_balance;
+                    const json = jsonData.json;
+                    yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, valorganho, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
+                    let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
+                    if (history) {
+                        yield allfunctions_1.default.insertGameHistory(user, history)
+                    }
+
+                    yield dinerdelightsfunctions_1.default.savejsonspin(user.id, JSON.stringify(json));
+                    res.send(json);
+                    return true;
+                }
                 
                 
                 else if (resultadospin.result === constans.BIGWIN && resultadospin.gamecode === "diner-delights") {//大奖
@@ -162,7 +206,7 @@ exports.default = {
                         }
                     } else {
                         const steps = Object.keys(cartajson).length - 1;
-                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id);
+                        calltwo = yield allfunctions_1.default.addAndReturnCall(gamename, user.id, resultadospin.json, steps, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score, resultadospin.user_real_score);
                         resultadospin.idcall = calltwo[0].id;
                     }
                     
@@ -174,8 +218,6 @@ exports.default = {
                     const json = jsonData.json;
                    
                     if (currentStep === 0) {
-
-                        yield allfunctions_1.default.completecall(calltwo[0].id);
                         const txnid = (0, uuid_1.v4)();
                         const dataFormatada = (0, moment_1.default)().toISOString();
                         let transRet = yield apicontroller_1.default.callbackgame(agent,{
@@ -203,7 +245,7 @@ exports.default = {
                         }
 
                         const newbalance = transRet.user_balance;
-                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id);
+                        yield allfunctions_1.default.updateUserWinBetInfo(user, agent, game_code, newbalance, bet, totalValorganho, resultadospin.call_rtp_id, resultadospin.from_reward_pool, resultadospin.reward_pool_score);
                        if (propertyCount == 1) {
                             let history = allfunctions_1.default.createGameHistory(game_code, json.dt.si);
                             if (history) {
@@ -220,11 +262,11 @@ exports.default = {
                            yield allfunctions_1.default.insertGameHistory(user, history)
                         }
 
-                        yield dinerdelightsfunctions_1.default.savejsonspin(user.id, JSON.stringify(json));
+                        yield dinerdelightsfunctions_1.default.completecallAndSaveJsonSpin(calltwo[0].id, user.id, JSON.stringify(json));
                         res.send(json);
                         return true;
                     }
-                    yield allfunctions_1.default.subtrairstepscall(resultadospin.idcall);
+                    yield dinerdelightsfunctions_1.default.subtrairstepscallAndSaveJsonSpin(resultadospin.idcall, user.id, JSON.stringify(json));
                     res.send(json);
 
                 }

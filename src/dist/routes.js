@@ -49,6 +49,8 @@ routes.post("/psd/req", apicontroller_1.default.OnJiliReq)
 //GAMES CONTROLLERS ROUTES
 routes.post("/web-api/auth/session/v2/verifySession", sessioncontroller_1.default.verifySession);
 routes.post("/web-api/auth/session/v2/verifyOperatorPlayerSession", sessioncontroller_1.default.verifySession);
+routes.post("/test-api/login", apicontroller_1.default.login_test_user);
+
 
 const game_route = __importDefault(require("./route/game_route"));
 game_route.default.initGameRoute(routes);

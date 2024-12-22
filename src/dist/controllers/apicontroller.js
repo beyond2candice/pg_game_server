@@ -99,11 +99,11 @@ exports.default = {
                         } else {
                            // if(codegame == 1635221)
                           //  {
-                          //       launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
+                                 //launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
                           //  }
-                          //  else{
-                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
-                          //  }
+                         //   else{
+                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc10d64&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                         //   }
                            
 
                         }
@@ -112,7 +112,7 @@ exports.default = {
                             msg: "SUCCESS",
                             //https://pool-game.com/126/index.html?btt=1&oc=0&iwk=1&operator_token=Zm9saWFiZXQd&t=4433d99b-5142-472e-bc66-87bdcd8caf31&l=pt&op=2613925&or=pool-game.com&api=pool-game.com&__hv=1fb84f27
                             //https://pool-game.com/126/index.html?btt=1&oc=0&iwk=1&operator_token=Zm9saWFiZXQd&t=4433d99b-5142-472e-bc66-87bdcd8caf31&l=pt&op=2613925&or=pool-game.com&__refer=pool-game.com&__hv=1fb84f27
-                            //launch_url:`https://${gameUrl}/index.html?l=pt&btt=1&ot=${getnewuser[0].token}&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=pool-game.com&__hv=1fb84f27&api=https://pool-game.com`,
+                            //launch_url:`https://${gameUrl}/index.html?l=pt&btt=1&ot=${getnewuser[0].token}&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=pool-game.com&__hv=1fc10d64&api=https://pool-game.com`,
                             launch_url: launghUrl,
                         });
                     }
@@ -130,13 +130,13 @@ exports.default = {
                         launghUrl = `https://${gameUrl}/${codegame}/index.html?oc=1&l=pt&operator_token=Zm9saWFiZXQ=&btt=1&t=${user[0].token}&or=${gameUrl}&api=${gameUrl}`;
                     } else {
                        // if(codegame == 1635221)
-                       //     {
-                       //          launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token//=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
-                       //     }
-                       //     else
                         //    {
-                                launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=${gameUrl}&__hv=1fe4a473&__refer=${gameUrl}&api=https://${gameUrl}`;
-                           // }
+                        ////         launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
+                         //   }
+                        //    else
+                          //  {
+                            launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc10d64&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                         //   }
                         
                     }
                     
@@ -304,7 +304,7 @@ exports.default = {
                 const provider_code = req.body.provider_code;
                 const user_code = req.body.user_code;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp < 0) {
+                if (rtp <0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
@@ -352,7 +352,7 @@ exports.default = {
                 const agent_token = req.body.agent_token;
                 const user_codes = req.body.user_codes;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp < 0) {
+                if (rtp <0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
@@ -379,6 +379,7 @@ exports.default = {
                     });
                     return;
                 }
+               
                 yield allfunctions_1.default.updateBatchUserRtp(strlist, agents[0].id, rtp);
                 res.send({
                     status: 1,
@@ -982,6 +983,161 @@ exports.default = {
                 }
             });
         },
+        rtp_call_id(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const id = parseInt(req.body.id);
+                    const agent_code = req.body.agent_code;
+                    const agent_token = req.body.agent_token;
+                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !id || id == "") {
+                        res.send({
+                            status: 0,
+                            msg: "invalid param"
+                        });
+                        return false;
+                    }
+
+                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                        res.send({
+                            status: 0,
+                            msg: "Agent Token não cadastrado.",
+                        });
+                        return false;
+                    }
+                    let get_res = yield allfunctions_1.default.rtp_call_user_id(id);
+                    if (!get_res) {
+                        res.send({
+                            status: 0,
+                            msg: "Internal Error.",
+                        });
+                        return false;
+                    }
+
+                    let data = [];
+                    get_res.forEach(rtp_call => {
+                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                        if (!game_info) {
+                            res.send({
+                                status: 0,
+                                msg: "Invalid game_code.",
+                            });
+                            return false;
+                        }
+
+                        data.push({
+                            id: rtp_call.id,
+                            agent_code: rtp_call.agentCode,
+                            user_code: rtp_call.user_code,
+                            provider_code: rtp_call.provider_code,
+                            game_code: game_info.PlatformGameName,
+                            bet: rtp_call.bet,
+                            expect: rtp_call.expect,
+                            real:rtp_call.real,
+                            missed: rtp_call.expect - rtp_call.real,
+                            rtp: rtp_call.rtp,
+                            type: "common",
+                            status: rtp_call.status, 
+                            created_at: new Date(rtp_call.created_at),
+                            updated_at: new Date(rtp_call.updated_at)
+                        });
+                    });
+
+                    res.send({
+                        status: 1,
+                        data:data
+                    });
+                    return true;
+                } catch (e){
+                    console.log(e);
+                }
+                res.send({
+                    status: 0,
+                    msg: "Internal Error.",
+                });
+                return false;
+            });
+        },
+        rtp_call_code(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const user_code = req.body.user_code;
+                    const agent_code = req.body.agent_code;
+                    const agent_token = req.body.agent_token;
+                    const page= parseInt(req.body.page);
+                    const limit = parseInt(req.body.limit);
+
+                    if (!user_code || user_code == "" || !agent_code || agent_code == "" || !agent_token || agent_token == "" || !page || page == "" || !limit || limit == "") {
+                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+                    }
+        
+
+                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                        res.send({
+                            status: 0,
+                            msg: "Agent Token não cadastrado.",
+                        });
+                        return false;
+                    }
+                    let agent = agent_res[0];
+                    const totalRecords = yield allfunctions_1.default.GetTotaluserRecords(user_code); 
+ 
+                    const offset = (page - 1) * limit;
+    
+                    if (totalRecords < offset) {
+                        return res.send({ status: 1, data: [], totalRecords: totalRecords ,currentPage: page});
+                    }
+        
+    
+
+                    let get_res = yield allfunctions_1.default.rtp_call_user_code(user_code, offset, limit);
+                    let data = [];
+                    get_res.forEach(rtp_call => {
+                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                        if (!game_info) {
+                            res.send({
+                                status: 0,
+                                msg: "Invalid game_code.",
+                            });
+                            return false;
+                        }
+
+                        data.push({
+                            id: rtp_call.id,
+                            agent_code: agent.agentCode,
+                            user_code: rtp_call.user_code,
+                            provider_code: rtp_call.provider_code,
+                            game_code: game_info.PlatformGameName,
+                            bet: rtp_call.bet,
+                            expect: rtp_call.expect,
+                            real:rtp_call.real,
+                            missed: rtp_call.expect - rtp_call.real,
+                            rtp: rtp_call.rtp,
+                            type: "common",
+                            status: rtp_call.status, 
+                            created_at: new Date(rtp_call.created_at),
+                            updated_at: new Date(rtp_call.updated_at)
+                        });
+                    });
+
+                    res.send({
+                        status: 1,
+                        data:data,
+                        totalRecords: totalRecords,
+                         currentPage: page
+                    });
+                    return true;
+                } catch (e){
+                    console.log(e);
+                }
+                res.send({
+                    status: 0,
+                    msg: "Internal Error.",
+                });
+                return false;
+            });
+        },
         SyncGameData(req, res) {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
@@ -991,7 +1147,7 @@ exports.default = {
                     const week_id_start = parseInt(req.body.week_id_start) || 0;
                     const history_time_ms = parseInt(req.body.history_time_ms) || 0;
                     let page_size = parseInt(req.body.page_size) || 0;
-                    console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
+                    //console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
                     if (!(page_size>0 && page_size<500)) {
                         page_size = 100;
                     }
@@ -1149,6 +1305,28 @@ exports.default = {
                 } catch (error) {
                     console.error(error);
                     return res.send({ status: 0, msg: "The setting of the proxy agent failed" });
+                }
+            });
+        },
+
+        login_test_user(req, res) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const uid_start = parseInt(req.body.uid_start) || 0;
+                    const num = parseInt(req.body.num) || 1;
+
+                    const users= yield allfunctions_1.default.getuserbystartid(uid_start, num);
+                    if (!Array.isArray(users) || users.length < 1) {
+                        return res.send({ status: 0});
+                    }
+                    const atk_lst = users.map(user => ({
+                        atk: user.atk,
+                        score:user.saldo,
+                    }));
+                   return res.send({status:1, users:atk_lst});
+                } catch (error) {
+                    console.log(error);
+                    return res.send({ status: 0, msg: "The acquisition of the URL failed" });
                 }
             });
         },

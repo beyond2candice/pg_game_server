@@ -216,5 +216,150 @@ exports.default = {
 		const wildbountysdController = __importDefault(require("../controllers/wild-bounty-sd/gameController"));
 		routes.post("/game-api/wild-bounty-sd/v2/GameInfo/Get", wildbountysdController.default.getGameInfo)
 		routes.post("/game-api/wild-bounty-sd/v2/Spin", wildbountysdController.default.spin)
+		const speedwinnerController = __importDefault(require("../controllers/speed-winner/gameController"));
+		routes.post("/game-api/speed-winner/v2/GameInfo/Get", speedwinnerController.default.getGameInfo)
+		routes.post("/game-api/speed-winner/v2/Spin", speedwinnerController.default.spin)
+		const wildcoasterController = __importDefault(require("../controllers/wild-coaster/gameController"));
+		routes.post("/game-api/wild-coaster/v2/GameInfo/Get", wildcoasterController.default.getGameInfo)
+		routes.post("/game-api/wild-coaster/v2/Spin", wildcoasterController.default.spin)
+		const legendperseusController = __importDefault(require("../controllers/legend-perseus/gameController"));
+		routes.post("/game-api/legend-perseus/v2/GameInfo/Get", legendperseusController.default.getGameInfo)
+		routes.post("/game-api/legend-perseus/v2/Spin", legendperseusController.default.spin)
+		const hawaiiantikiController = __importDefault(require("../controllers/hawaiian-tiki/gameController"));
+		routes.post("/game-api/hawaiian-tiki/v2/GameInfo/Get", hawaiiantikiController.default.getGameInfo)
+		routes.post("/game-api/hawaiian-tiki/v2/Spin", hawaiiantikiController.default.spin)
+		const mafiamayhemController = __importDefault(require("../controllers/mafia-mayhem/gameController"));
+		routes.post("/game-api/mafia-mayhem/v2/GameInfo/Get", mafiamayhemController.default.getGameInfo)
+		routes.post("/game-api/mafia-mayhem/v2/Spin", mafiamayhemController.default.spin)
+		const gladigloryController = __importDefault(require("../controllers/gladi-glory/gameController"));
+		routes.post("/game-api/gladi-glory/v2/GameInfo/Get", gladigloryController.default.getGameInfo)
+		routes.post("/game-api/gladi-glory/v2/Spin", gladigloryController.default.spin)
+		const pinatawinsController = __importDefault(require("../controllers/pinata-wins/gameController"));
+		routes.post("/game-api/pinata-wins/v2/GameInfo/Get", pinatawinsController.default.getGameInfo)
+		routes.post("/game-api/pinata-wins/v2/Spin", pinatawinsController.default.spin)
+		const legendofhouyiController = __importDefault(require("../controllers/legend-of-hou-yi/gameController"));
+		routes.post("/game-api/legend-of-hou-yi/v2/GameInfo/Get", legendofhouyiController.default.getGameInfo)
+		routes.post("/game-api/legend-of-hou-yi/v2/Spin", legendofhouyiController.default.spin)
+		const fortunegodsController = __importDefault(require("../controllers/fortune-gods/gameController"));
+		routes.post("/game-api/fortune-gods/v2/GameInfo/Get", fortunegodsController.default.getGameInfo)
+		routes.post("/game-api/fortune-gods/v2/Spin", fortunegodsController.default.spin)
+		const safariwildsController = __importDefault(require("../controllers/safari-wilds/gameController"));
+		routes.post("/game-api/safari-wilds/v2/GameInfo/Get", safariwildsController.default.getGameInfo)
+		routes.post("/game-api/safari-wilds/v2/Spin", safariwildsController.default.spin)
+		const tsartreasuresController = __importDefault(require("../controllers/tsar-treasures/gameController"));
+		routes.post("/game-api/tsar-treasures/v2/GameInfo/Get", tsartreasuresController.default.getGameInfo)
+		routes.post("/game-api/tsar-treasures/v2/Spin", tsartreasuresController.default.spin)
+		const ultstrikerController = __importDefault(require("../controllers/ult-striker/gameController"));
+		routes.post("/game-api/ult-striker/v2/GameInfo/Get", ultstrikerController.default.getGameInfo)
+		routes.post("/game-api/ult-striker/v2/Spin", ultstrikerController.default.spin)
+		const werewolfhuntController = __importDefault(require("../controllers/werewolf-hunt/gameController"));
+		routes.post("/game-api/werewolf-hunt/v2/GameInfo/Get", werewolfhuntController.default.getGameInfo)
+		routes.post("/game-api/werewolf-hunt/v2/Spin", werewolfhuntController.default.spin)
+		const totemwondersController = __importDefault(require("../controllers/totem-wonders/gameController"));
+		routes.post("/game-api/totem-wonders/v2/GameInfo/Get", totemwondersController.default.getGameInfo)
+		routes.post("/game-api/totem-wonders/v2/Spin", totemwondersController.default.spin)
+		const forgewealthController = __importDefault(require("../controllers/forge-wealth/gameController"));
+		routes.post("/game-api/forge-wealth/v2/GameInfo/Get", forgewealthController.default.getGameInfo)
+		routes.post("/game-api/forge-wealth/v2/Spin", forgewealthController.default.spin)
+		const luckycloverController = __importDefault(require("../controllers/lucky-clover/gameController"));
+		routes.post("/game-api/lucky-clover/v2/GameInfo/Get", luckycloverController.default.getGameInfo)
+		routes.post("/game-api/lucky-clover/v2/Spin", luckycloverController.default.spin)
+		const mystspiritsController = __importDefault(require("../controllers/myst-spirits/gameController"));
+		routes.post("/game-api/myst-spirits/v2/GameInfo/Get", mystspiritsController.default.getGameInfo)
+		routes.post("/game-api/myst-spirits/v2/Spin", mystspiritsController.default.spin)
+		const plushiefrenzyController = __importDefault(require("../controllers/plushie-frenzy/gameController"));
+		routes.post("/game-api/plushie-frenzy/v2/GameInfo/Get", plushiefrenzyController.default.getGameInfo)
+		routes.post("/game-api/plushie-frenzy/v2/Spin", plushiefrenzyController.default.spin)
+		const wildheistcoController = __importDefault(require("../controllers/wild-heist-co/gameController"));
+		routes.post("/game-api/wild-heist-co/v2/GameInfo/Get", wildheistcoController.default.getGameInfo)
+		routes.post("/game-api/wild-heist-co/v2/Spin", wildheistcoController.default.spin)
+		const dragonlegendController = __importDefault(require("../controllers/dragon-legend/gameController"));
+		routes.post("/game-api/dragon-legend/v2/GameInfo/Get", dragonlegendController.default.getGameInfo)
+		routes.post("/game-api/dragon-legend/v2/Spin", dragonlegendController.default.spin)
+		const jurassickdmController = __importDefault(require("../controllers/jurassic-kdm/gameController"));
+		routes.post("/game-api/jurassic-kdm/v2/GameInfo/Get", jurassickdmController.default.getGameInfo)
+		routes.post("/game-api/jurassic-kdm/v2/Spin", jurassickdmController.default.spin)
+		const santasgiftrushController = __importDefault(require("../controllers/santas-gift-rush/gameController"));
+		routes.post("/game-api/santas-gift-rush/v2/GameInfo/Get", santasgiftrushController.default.getGameInfo)
+		routes.post("/game-api/santas-gift-rush/v2/Spin", santasgiftrushController.default.spin)
+		const cocktailniteController = __importDefault(require("../controllers/cocktail-nite/gameController"));
+		routes.post("/game-api/cocktail-nite/v2/GameInfo/Get", cocktailniteController.default.getGameInfo)
+		routes.post("/game-api/cocktail-nite/v2/Spin", cocktailniteController.default.spin)
+		const emperorsfavourController = __importDefault(require("../controllers/emperors-favour/gameController"));
+		routes.post("/game-api/emperors-favour/v2/GameInfo/Get", emperorsfavourController.default.getGameInfo)
+		routes.post("/game-api/emperors-favour/v2/Spin", emperorsfavourController.default.spin)
+		const flirtingscholarController = __importDefault(require("../controllers/flirting-scholar/gameController"));
+		routes.post("/game-api/flirting-scholar/v2/GameInfo/Get", flirtingscholarController.default.getGameInfo)
+		routes.post("/game-api/flirting-scholar/v2/Spin", flirtingscholarController.default.spin)
+		const hiphoppandaController = __importDefault(require("../controllers/hip-hop-panda/gameController"));
+		routes.post("/game-api/hip-hop-panda/v2/GameInfo/Get", hiphoppandaController.default.getGameInfo)
+		routes.post("/game-api/hip-hop-panda/v2/Spin", hiphoppandaController.default.spin)
+		const honeytrapofdiaochanController = __importDefault(require("../controllers/honey-trap-of-diao-chan/gameController"));
+		routes.post("/game-api/honey-trap-of-diao-chan/v2/GameInfo/Get", honeytrapofdiaochanController.default.getGameInfo)
+		routes.post("/game-api/honey-trap-of-diao-chan/v2/Spin", honeytrapofdiaochanController.default.spin)
+		const journeytothewealthController = __importDefault(require("../controllers/journey-to-the-wealth/gameController"));
+		routes.post("/game-api/journey-to-the-wealth/v2/GameInfo/Get", journeytothewealthController.default.getGameInfo)
+		routes.post("/game-api/journey-to-the-wealth/v2/Spin", journeytothewealthController.default.spin)
+		const luckynekoController = __importDefault(require("../controllers/lucky-neko/gameController"));
+		routes.post("/game-api/lucky-neko/v2/GameInfo/Get", luckynekoController.default.getGameInfo)
+		routes.post("/game-api/lucky-neko/v2/Spin", luckynekoController.default.spin)
+		const maskcarnivalController = __importDefault(require("../controllers/mask-carnival/gameController"));
+		routes.post("/game-api/mask-carnival/v2/GameInfo/Get", maskcarnivalController.default.getGameInfo)
+		routes.post("/game-api/mask-carnival/v2/Spin", maskcarnivalController.default.spin)
+		const medusaController = __importDefault(require("../controllers/medusa/gameController"));
+		routes.post("/game-api/medusa/v2/GameInfo/Get", medusaController.default.getGameInfo)
+		routes.post("/game-api/medusa/v2/Spin", medusaController.default.spin)
+		const mermaidrichesController = __importDefault(require("../controllers/mermaid-riches/gameController"));
+		routes.post("/game-api/mermaid-riches/v2/GameInfo/Get", mermaidrichesController.default.getGameInfo)
+		routes.post("/game-api/mermaid-riches/v2/Spin", mermaidrichesController.default.spin)
+		const mrhallowwinController = __importDefault(require("../controllers/mr-hallow-win/gameController"));
+		routes.post("/game-api/mr-hallow-win/v2/GameInfo/Get", mrhallowwinController.default.getGameInfo)
+		routes.post("/game-api/mr-hallow-win/v2/Spin", mrhallowwinController.default.spin)
+		const muaythaichampioController = __importDefault(require("../controllers/muay-thai-champio/gameController"));
+		routes.post("/game-api/muay-thai-champion/v2/GameInfo/Get", muaythaichampioController.default.getGameInfo)
+		routes.post("/game-api/muay-thai-champion/v2/Spin", muaythaichampioController.default.spin)
+		const ninjaraccoonController = __importDefault(require("../controllers/ninja-raccoon/gameController"));
+		routes.post("/game-api/ninja-raccoon/v2/GameInfo/Get", ninjaraccoonController.default.getGameInfo)
+		routes.post("/game-api/ninja-raccoon/v2/Spin", ninjaraccoonController.default.spin)
+		const ninjavssamuraiController = __importDefault(require("../controllers/ninja-vs-samurai/gameController"));
+		routes.post("/game-api/ninja-vs-samurai/v2/GameInfo/Get", ninjavssamuraiController.default.getGameInfo)
+		routes.post("/game-api/ninja-vs-samurai/v2/Spin", ninjavssamuraiController.default.spin)
+		const prosperitylionController = __importDefault(require("../controllers/prosperity-lion/gameController"));
+		routes.post("/game-api/prosperity-lion/v2/GameInfo/Get", prosperitylionController.default.getGameInfo)
+		routes.post("/game-api/prosperity-lion/v2/Spin", prosperitylionController.default.spin)
+		const reelloveyController = __importDefault(require("../controllers/reel-lovey/gameController"));
+		routes.post("/game-api/reel-love/v2/GameInfo/Get", reelloveyController.default.getGameInfo)
+		routes.post("/game-api/reel-love/v2/Spin", reelloveyController.default.spin)
+		const riofantasiaController = __importDefault(require("../controllers/rio-fantasia/gameController"));
+		routes.post("/game-api/rio-fantasia/v2/GameInfo/Get", riofantasiaController.default.getGameInfo)
+		routes.post("/game-api/rio-fantasia/v2/Spin", riofantasiaController.default.spin)
+		const riseofapolloController = __importDefault(require("../controllers/rise-of-apollo/gameController"));
+		routes.post("/game-api/rise-of-apollo/v2/GameInfo/Get", riseofapolloController.default.getGameInfo)
+		routes.post("/game-api/rise-of-apollo/v2/Spin", riseofapolloController.default.spin)
+		const shaolinsoccerController = __importDefault(require("../controllers/shaolin-soccer/gameController"));
+		routes.post("/game-api/shaolin-soccer/v2/GameInfo/Get", shaolinsoccerController.default.getGameInfo)
+		routes.post("/game-api/shaolin-soccer/v2/Spin", shaolinsoccerController.default.spin)
+		routes.post("/game-api/shaolin-soccer/v2/Spin/Free/PlayerSelection", shaolinsoccerController.default.spin)
+		const thairiverController = __importDefault(require("../controllers/thai-river/gameController"));
+		routes.post("/game-api/thai-river/v2/GameInfo/Get", thairiverController.default.getGameInfo)
+		routes.post("/game-api/thai-river/v2/Spin", thairiverController.default.spin)
+		const threeczpigsController = __importDefault(require("../controllers/three-cz-pigs/gameController"));
+		routes.post("/game-api/three-cz-pigs/v2/GameInfo/Get", threeczpigsController.default.getGameInfo)
+		routes.post("/game-api/three-cz-pigs/v2/Spin", threeczpigsController.default.spin)
+		const waysofqilinController = __importDefault(require("../controllers/ways-of-qilin/gameController"));
+		routes.post("/game-api/ways-of-qilin/v2/GameInfo/Get", waysofqilinController.default.getGameInfo)
+		routes.post("/game-api/ways-of-qilin/v2/Spin", waysofqilinController.default.spin)
+		const wingsiguazuController = __importDefault(require("../controllers/wings-iguazu/gameController"));
+		routes.post("/game-api/wings-iguazu/v2/GameInfo/Get", wingsiguazuController.default.getGameInfo)
+		routes.post("/game-api/wings-iguazu/v2/Spin", wingsiguazuController.default.spin)
+		const winwinfishprawncrabController = __importDefault(require("../controllers/win-win-fish-prawn-crab/gameController"));
+		routes.post("/game-api/win-win-fpc/v2/GameInfo/Get", winwinfishprawncrabController.default.getGameInfo)
+		routes.post("/game-api/win-win-fpc/v2/Spin", winwinfishprawncrabController.default.spin)
+		const hotpotController = __importDefault(require("../controllers/hotpot/gameController"));
+		routes.post("/game-api/hotpot/v2/GameInfo/Get", hotpotController.default.getGameInfo)
+		routes.post("/game-api/hotpot/v2/Spin", hotpotController.default.spin)
+		const dreamsofmacauController = __importDefault(require("../controllers/dreams-of-macau/gameController"));
+		routes.post("/game-api/dreams-of-macau/v2/GameInfo/Get", dreamsofmacauController.default.getGameInfo)
+		routes.post("/game-api/dreams-of-macau/v2/Spin", dreamsofmacauController.default.spin)
 	}
 }

@@ -127,7 +127,7 @@ exports.default = {
                 if (ret.Type === 0) {
                     return ret.Result;
                 } else {
-                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, ret.Result, gamename, gladigloryjsonresult.default.GetGameJsons());
+                    return allfunctions_1.default.getBetResultByGameRtpCall(user, agent, bet, ret, gamename, gladigloryjsonresult.default.GetGameJsons());
                 }
             }
             return yield allfunctions_1.default.getBetResultScore(user, agent, bet, user_score, token, gamename, gladigloryjsonresult.default.GetGameJsons());
@@ -237,7 +237,7 @@ exports.default = {
         let json = {
             dt: {
                 si: { 
-                actw: cartajsonValue.actw, 
+                actw: allfunctions_1.default.MultiplyValueWithFix(cartajsonValue.actw , betRate), 
                 crtw: cartajsonValue.crtw, 
                 cwc: cartajsonValue.cwc, 
                 cwsp: cartajsonValue.cwsp, 
