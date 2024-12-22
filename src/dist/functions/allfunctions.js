@@ -1214,7 +1214,7 @@ exports.default = {
                         retIdx = indexHight + Math.floor(Math.random() * (high - indexHight));
                     } else
                     {
-                        if (randVal < (RTP*100 - BIGWIN_RATE)/2) {
+                        if (randVal < (RTP*100 - BIGWIN_RATE)/10) {
                             retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow)); 
                         } else {
                             let index = yield this.getJsonIndexFromGameJsons(gamejsons, 0);

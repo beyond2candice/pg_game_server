@@ -328,6 +328,10 @@ exports.default = {
                     });
                     return;
                 }
+                if(rtp > 100)
+                {
+                    rtp = 100;
+                }
                 yield allfunctions_1.default.updateUserRtp(user_code, agents[0].id, rtp);
                 res.send({
                     status: 1,
@@ -379,7 +383,10 @@ exports.default = {
                     });
                     return;
                 }
-               
+               if(rtp > 100)
+               {
+                    rtp = 100;
+               }
                 yield allfunctions_1.default.updateBatchUserRtp(strlist, agents[0].id, rtp);
                 res.send({
                     status: 1,
