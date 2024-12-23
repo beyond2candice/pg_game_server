@@ -1044,7 +1044,7 @@ exports.default = {
         }
         const betRate = bet / gamejsons[0].Tb;
         console.log("rtp=" + rtp + " score=" + score + " betRate=" + betRate);
-        const ret = this.getJsonIndexRange(gamejsons, score);
+        const ret = this.getJsonIndexRange(gamejsons, score/betRate);
         let idx = -1;
         if (ret.Low < ret.High) {
             idx = ret.Low + Math.floor(Math.random() * (ret.High - ret.Low + 1));
@@ -1196,31 +1196,14 @@ exports.default = {
                 if (Math.random() * 100 < -1) {
                     retIdx = Math.floor(Math.random() * 500);
                 } else {
-                    let score = this.getScoreByRtp(RTP, gamejsons);
-                    const indexMid = yield this.getJsonIndexFromGameJsons(gamejsons, score);
-                    //console.log("bet=" + bet + " scoreRand=" + scoreRand + " score=" + score + " lowScore" + lowScore * RTP / bet+ " maxScore = " + maxScore * RTP / bet + " indexMid=" + indexMid);
-                    let indexHight = indexMid + 10;
-                    if (indexHight > high) {
-                        indexHight = high;
-                    }
-                    //获取score大于下注值的最小索引
-                    const betRate = bet / gamejsons[0].Tb;
-                    const betScore = (bet * RTP / 100) / betRate;
-                    let indexMin = yield this.getFirstJsonIndexEqualOrGreaterThanScore(gamejsons, -betScore + 0.01);
-                    let indexLow = indexMid - 90;
-                    if (indexLow < 0) {
-                        indexLow = 0;
-                    }
-                    if (indexLow < indexMin) {
-                        indexLow = indexMin;
-                    }
-                    if (indexLow >= indexHight) {
-                        retIdx = indexLow;
-                    } else {
-                        const BIGWIN_RATE = Math.floor(((RTP - 60) / 2000) * 100);
-                        const randVal = Math.random() * 10000;
-                        if (randVal < BIGWIN_RATE) {
-                            retIdx = indexHight + Math.floor(Math.random() * (high - indexHight));
+                    const BIGWIN_RATE = Math.floor(((RTP - 60) /  2000) * 100);
+                    const randVal = Math.random() * 10000;
+                    if (randVal < BIGWIN_RATE) {
+                        retIdx = indexHight + Math.floor(Math.random() * (high - indexHight));
+                    } else
+                    {
+                        if (randVal < (RTP*100 - BIGWIN_RATE)/10) {
+                            retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow)); 
                         } else {
                             if (randVal < (RTP * 100 - BIGWIN_RATE) / 2) {
                                 retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow));

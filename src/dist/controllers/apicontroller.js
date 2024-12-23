@@ -134,10 +134,10 @@ exports.default = {
                         ////         launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
                         //   }
                         //    else
-                        //  {
-                        launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
-                        //   }
-
+                          //  {
+                            launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                         //   }
+                        
                     }
 
                     yield allfunctions_1.default.setbalanceuserbyid(user[0].id, user_balance, provider_code);
@@ -361,6 +361,10 @@ exports.default = {
                     });
                     return;
                 }
+                if(rtp > 100)
+                {
+                    rtp = 100;
+                }
                 yield allfunctions_1.default.updateUserRtp(user_code, agents[0].id, rtp);
                 res.send({
                     status: 1,
@@ -411,7 +415,10 @@ exports.default = {
                     });
                     return;
                 }
-
+               if(rtp > 100)
+               {
+                    rtp = 100;
+               }
                 yield allfunctions_1.default.updateBatchUserRtp(strlist, agents[0].id, rtp);
                 res.send({
                     status: 1,
