@@ -26,9 +26,9 @@ const protobuf = require('protobufjs');
 const path = require('path');
 const protoFilePath = path.join(__dirname, '../proto/message.proto');
 const game_data_cache = __importDefault(require("../cache/game_data_cache"));
-const constans = require("../constans/constants")													
+const constans = require("../constans/constants")
 
-protobuf.load(protoFilePath, (err, root)=>{
+protobuf.load(protoFilePath, (err, root) => {
     if (err) {
         throw err;
     }
@@ -37,7 +37,7 @@ protobuf.load(protoFilePath, (err, root)=>{
     const InfoReq = root.lookupType("InfoReq")
     const GameInfoAck = root.lookupType("GameInfoAck")
     const MallInfo = root.lookupType("MallInfo")
-    const PreferRoundShow  = root.lookupType("MallInfo")
+    const PreferRoundShow = root.lookupType("MallInfo")
     const Tournament = root.lookupType("MallInfo")
 })
 exports.default = {
@@ -66,7 +66,7 @@ exports.default = {
                     });
                     return false;
                 }
-                const gameControlInfo = gamecontollermgr_1.default.GetGameInfoByPlaformName(game_code); 
+                const gameControlInfo = gamecontollermgr_1.default.GetGameInfoByPlaformName(game_code);
                 if (!gameControlInfo) {
                     res.send({
                         status: 0,
@@ -95,16 +95,16 @@ exports.default = {
                     if (getnewuser) {
                         var launghUrl;
                         if (pgType == 1) {
-                            launghUrl =  `https://${gameUrl}/${codegame}/index.html?oc=0&l=pt&operator_token=Zm9saWFiZXQ=&t=${getnewuser.token}&l=pt&or=api.${gameUrl}&api=api.${gameUrl}`;
+                            launghUrl = `https://${gameUrl}/${codegame}/index.html?oc=0&l=pt&operator_token=Zm9saWFiZXQ=&t=${getnewuser.token}&l=pt&or=api.${gameUrl}&api=api.${gameUrl}`;
                         } else {
-                           // if(codegame == 1635221)
-                          //  {
-                                 //launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
-                          //  }
-                         //   else{
-                                 launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
-                         //   }
-                           
+                            // if(codegame == 1635221)
+                            //  {
+                            //launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
+                            //  }
+                            //   else{
+                            launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${getnewuser.token}&ot=${getnewuser.token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                            //   }
+
 
                         }
                         res.send({
@@ -129,17 +129,17 @@ exports.default = {
                     if (pgType == 1) {
                         launghUrl = `https://${gameUrl}/${codegame}/index.html?oc=1&l=pt&operator_token=Zm9saWFiZXQ=&btt=1&t=${user[0].token}&or=${gameUrl}&api=${gameUrl}`;
                     } else {
-                       // if(codegame == 1635221)
+                        // if(codegame == 1635221)
                         //    {
                         ////         launghUrl = `https://${gameUrl}/${codegame}/index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=static.pgsoft-games.com&__hv=1fb84f27&api=https://pgsoft-games.com`;
-                         //   }
+                        //   }
                         //    else
-                          //  {
-                            launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
-                         //   }
-                        
+                        //  {
+                        launghUrl = `https://${gameUrl}/${codegame}//index.html?l=pt&btt=1&t=${user[0].token}&ot=${user[0].token}&operator_token=Zm9saWFiZXQ&ops=Zm9saWFiZXQ&jurisdiction=CW&or=static.7-zeus.net&__hv=1fc4fe3b&__refer=static.7-zeus.net&api=https://${gameUrl}`;
+                        //   }
+
                     }
-                    
+
                     yield allfunctions_1.default.setbalanceuserbyid(user[0].id, user_balance, provider_code);
                     res.send({
                         status: 1,
@@ -147,7 +147,7 @@ exports.default = {
 
                         //https://pool-game.com/126/index.html?oc=1&l=pt&operator_token=Zm9saWFiZXQd&t=4433d99b-5142-472e-bc66-87bdcd8caf31&or=pool-game.com&api=pool-game.com
                         //launch_url:`https://${gameUrl}/index.html?l=pt&btt=1&ot=${user[0].token}&ops=Zm9saWFiZXQ&jurisdiction=CW&game_id=${codegame}&or=pool-game.com&__hv=1fa32d39&api=https://pool-game.com`,
-                        launch_url:launghUrl,
+                        launch_url: launghUrl,
                     });
                 }
             }
@@ -163,7 +163,7 @@ exports.default = {
                 json.slot.bet_money = allfunctions_1.default.ToFixScore(json.slot.bet_money);
                 json.slot.win_money = allfunctions_1.default.ToFixScore(json.slot.win_money);
             }
-            json.method = "transaction"; 
+            json.method = "transaction";
             try {
                 return yield (0, axios_1.default)({
                     maxBodyLength: Infinity,
@@ -175,23 +175,23 @@ exports.default = {
                     data: json,
                 })
                     .then((data) => {
-                        if (data.data.status === 1){
+                        if (data.data.status === 1) {
                             console.log("NEW BALANCE " + data.data.user_balance);
-                            return {status:1, user_balance:data.data.user_balance};
+                            return { status: 1, user_balance: data.data.user_balance };
                         } else {
-							console.log(data.data);
-                            return {status:0, user_balance:data.data.user_balance};
+                            console.log(data.data);
+                            return { status: 0, user_balance: data.data.user_balance };
                         }
-                })
+                    })
                     .catch((error) => {
                         console.log(error);
-                        return {status:0, user_balance:data.data.user_balance};
-                });
+                        return { status: 0, user_balance: data.data.user_balance };
+                    });
             }
             catch (error) {
                 console.log(error);
             }
-            return {status:0, user_balance:data.data.user_balance};
+            return { status: 0, user_balance: data.data.user_balance };
         });
     },
 
@@ -200,41 +200,74 @@ exports.default = {
             //yield allfunctions_1.default.savegamehistory()
             try {
                 //console.log(agent.agentCode + " " + agent.secretKey + " " + user.username);
-                
-               return yield (0, axios_1.default)({
-                   maxBodyLength: Infinity,
-                   method: "POST",
-                   url: `${agent.callbackurl}`,
-                   headers: {
-                       "Content-Type": "application/json",
-                   },
-                   data: {
-                       method:"user_balance",
-                       agent_code:agent.agentCode,
-                       agent_secret:agent.secretKey,
-                       user_code: user.username,
-                   },
-               })
-                .then((data) => {
-                    console.log(data.data);
-                    if (data.data.status === 1) {
-                        console.log("USER_BALANCE" + data.data.user_balance);
-                        return {status:1, user_balance:allfunctions_1.default.ToFixScore(data.data.user_balance)};
-                    } else {
-                        console.log("FAIL " +  data.data);
-                        return {status:0, user_balance:0};
-                    }
+
+                return yield (0, axios_1.default)({
+                    maxBodyLength: Infinity,
+                    method: "POST",
+                    url: `${agent.callbackurl}`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    data: {
+                        method: "user_balance",
+                        agent_code: agent.agentCode,
+                        agent_secret: agent.secretKey,
+                        user_code: user.username,
+                    },
                 })
-                .catch((error) => {
-                    console.log(error);
-                });
+                    .then((data) => {
+                        console.log(data.data);
+                        if (data.data.status === 1) {
+                            console.log("USER_BALANCE" + data.data.user_balance);
+                            return { status: 1, user_balance: allfunctions_1.default.ToFixScore(data.data.user_balance) };
+                        } else {
+                            console.log("FAIL " + data.data);
+                            return { status: 0, user_balance: 0 };
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             } catch (e) {
                 console.log(e);
             }
-            return {status:0, user_balance:0};
+            return { status: 0, user_balance: 0 };
         });
     },
-
+    SetIsAutoReward(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const is_auto_reward = +req.body.is_auto_reward;
+                if (!agent_code || agent_code == "" || is_auto_reward == undefined) {
+                    res.send({
+                        status: 0,
+                        msg: "Invalid Parameter",
+                        detail: "Invalid Parameter"
+                    });
+                    return;
+                }
+                let updateRes = yield allfunctions_1.default.setAgentIsAutoReward(agent_code, is_auto_reward);
+                if (!updateRes) {
+                    return res.send({
+                        status: 0,
+                        msg: "Failed to update auto reward setting."
+                    });
+                }
+                return res.send({
+                    status: 1,
+                    msg: "Auto reward setting updated successfully."
+                });
+            } catch (e) {
+                logger_1.default.error(e);
+                // 设置自动奖励时出错
+                res.send({
+                    status: 0,
+                    msg: "Erro ao definir recompensa automática.",
+                });
+            }
+        })
+    },
     getagent(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const agentToken = req.body.agentToken;
@@ -290,7 +323,7 @@ exports.default = {
         });
     },
 
-   OnJiliReq(req, res) {
+    OnJiliReq(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("req.body", req);
         });
@@ -304,7 +337,7 @@ exports.default = {
                 const provider_code = req.body.provider_code;
                 const user_code = req.body.user_code;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp <0) {
+                if (rtp < 0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
@@ -316,7 +349,7 @@ exports.default = {
                     res.send({
                         status: 0,
                         msg: "Invalid Parameter",
-                        detail:"Invalid Parameter"
+                        detail: "Invalid Parameter"
                     });
                     return;
                 }
@@ -331,7 +364,7 @@ exports.default = {
                 yield allfunctions_1.default.updateUserRtp(user_code, agents[0].id, rtp);
                 res.send({
                     status: 1,
-                    changed_rtp:rtp 
+                    changed_rtp: rtp
                 });
                 return;
             } catch (e) {
@@ -341,7 +374,7 @@ exports.default = {
             res.send({
                 status: 0,
                 msg: "Invalid Parameter",
-                detail:"Invalid Parameter"
+                detail: "Invalid Parameter"
             });
         });
     },
@@ -352,7 +385,7 @@ exports.default = {
                 const agent_token = req.body.agent_token;
                 const user_codes = req.body.user_codes;
                 const rtp = parseInt(req.body.rtp);
-                if (rtp <0) {
+                if (rtp < 0) {
                     res.send({
                         status: 0,
                         msg: "Invalid rtp"
@@ -361,8 +394,7 @@ exports.default = {
                 }
                 const startsWithBracket = user_codes.startsWith("[");
                 const endsWithBracket = user_codes.endsWith("]");
-                if (!startsWithBracket || !endsWithBracket)
-                {
+                if (!startsWithBracket || !endsWithBracket) {
                     res.send({
                         status: 0,
                         msg: "Invalid JSON"
@@ -379,14 +411,14 @@ exports.default = {
                     });
                     return;
                 }
-               
+
                 yield allfunctions_1.default.updateBatchUserRtp(strlist, agents[0].id, rtp);
                 res.send({
                     status: 1,
-                    changed_rtp:rtp 
+                    changed_rtp: rtp
                 });
                 return;
-            } catch (e){
+            } catch (e) {
                 console.log(e);
             }
 
@@ -404,7 +436,7 @@ exports.default = {
                 const agent_token = req.body.agent_token;
 
                 const res_agent = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                if (!res_agent|| res_agent.length == 0 || res_agent[0].agentCode != agent_code) {
+                if (!res_agent || res_agent.length == 0 || res_agent[0].agentCode != agent_code) {
                     res.send({
                         status: 0,
                         msg: "Agent Token não cadastrado.",
@@ -413,7 +445,7 @@ exports.default = {
                 }
 
                 let agent = res_agent[0];
-                if (!agent || agent.agentCode!=agent_code) {
+                if (!agent || agent.agentCode != agent_code) {
                     res.send({
                         status: 0,
                         msg: "Agent Token não cadastrado.",
@@ -422,10 +454,10 @@ exports.default = {
                 }
                 let user_lst = game_data_cache.default.GetOnLineUserList();
                 let data = [];
-                user_lst.forEach((game_user, key)=>{
+                user_lst.forEach((game_user, key) => {
                     let user = game_user.User;
                     let gamelist = game_user.GameList;
-                    if (!(gamelist.length >0)) {
+                    if (!(gamelist.length > 0)) {
                         return;
                     }
                     if (user.agentid != agent.id) {
@@ -442,12 +474,12 @@ exports.default = {
                                 user_code: user.username,
                                 provider_code: user.provider_code,
                                 game_code: game_info.PlatformGameName,
-                                bet: game_user.GameList[game_user.GameList.length-1].Bet,
+                                bet: game_user.GameList[game_user.GameList.length - 1].Bet,
                                 balance: user.saldo,
                                 total_debit: user.valordebitado,
                                 total_credit: user.valorganho,
-                                target_rtp: allfunctions_1.default.getUserRtp(user, agent)*100,
-                                real_rtp: Math.floor(user.valorganho / user.valordebitado* 10000)
+                                target_rtp: allfunctions_1.default.getUserRtp(user, agent) * 100,
+                                real_rtp: Math.floor(user.valorganho / user.valordebitado * 10000)
                             }
                         );
                     }
@@ -455,110 +487,223 @@ exports.default = {
 
                 res.send({
                     status: 1,
-                    data:data
+                    data: data
                 });
                 return true;
-            } catch (e){
+            } catch (e) {
                 console.log(e);
             }
         });
     },
     call_list(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const provider_code = req.body.provider_code;
-                    const game_code = req.body.game_code;
-                    const user_code = req.body.user_code
-                    if (!agent_code || agent_code=="" || !agent_token || agent_token == "" || !game_code || game_code == "" || !user_code || user_code == "") {
-                        res.send({
-                            status: 0,
-                            msg: "Invalid Param"
-                        });
-                        return false;
-                    }
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false ;
-                    }
-
-                    const gameControlInfo = gamecontollermgr_1.default.GetGameInfoByPlaformName(game_code); 
-                    if (!gameControlInfo) {
-                        res.send({
-                            status: 0,
-                            msg: "game_code invalid"
-                        });
-                        return false;
-                    }
-                    const gameJsonResult = gamecontollermgr_1.default.GetGameJsonResultByGameCode(gameControlInfo.GameCode);
-                    if (!gameJsonResult) {
-                        res.send({
-                            status: 0,
-                            msg: "game_code invalid"
-                        });
-                        return false;
-                    }
-                    const game_jsons = gameJsonResult.default.GetGameJsons();
-                    let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, gameControlInfo.GameCode);
-                    if (!jsonscoreset) {
-                        res.send({
-                            status: 0,
-                            msg: "game_code invalid"
-                        });
-                        return false;
-                    }
-
-                    let calls = [];
-                    const TbScore = game_jsons[0].Tb;
-                    jsonscoreset.forEach(score => {
-                        const winScore = score;
-                        if (score >= 0) {
-                            calls.push({rtp: Math.floor(10000*(winScore/ TbScore)), call_type:"Free"});
-                        } else {
-                            calls.push({rtp: Math.floor(10000*(winScore/ TbScore)), call_type:"Free"});
-                        }
-                    });
-
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const provider_code = req.body.provider_code;
+                const game_code = req.body.game_code;
+                const user_code = req.body.user_code
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !game_code || game_code == "" || !user_code || user_code == "") {
                     res.send({
-                        status: 1,
-                        calls:calls
+                        status: 0,
+                        msg: "Invalid Param"
                     });
-                    return true;
-                } catch (e){
-                    console.log(e);
+                    return false;
+                }
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+
+                const gameControlInfo = gamecontollermgr_1.default.GetGameInfoByPlaformName(game_code);
+                if (!gameControlInfo) {
+                    res.send({
+                        status: 0,
+                        msg: "game_code invalid"
+                    });
+                    return false;
+                }
+                const gameJsonResult = gamecontollermgr_1.default.GetGameJsonResultByGameCode(gameControlInfo.GameCode);
+                if (!gameJsonResult) {
+                    res.send({
+                        status: 0,
+                        msg: "game_code invalid"
+                    });
+                    return false;
+                }
+                const game_jsons = gameJsonResult.default.GetGameJsons();
+                let jsonscoreset = allfunctions_1.default.getJsonScoreset(game_jsons, gameControlInfo.GameCode);
+                if (!jsonscoreset) {
+                    res.send({
+                        status: 0,
+                        msg: "game_code invalid"
+                    });
+                    return false;
+                }
+
+                let calls = [];
+                const TbScore = game_jsons[0].Tb;
+                jsonscoreset.forEach(score => {
+                    const winScore = score;
+                    if (score >= 0) {
+                        calls.push({ rtp: Math.floor(10000 * (winScore / TbScore)), call_type: "Free" });
+                    } else {
+                        calls.push({ rtp: Math.floor(10000 * (winScore / TbScore)), call_type: "Free" });
+                    }
+                });
+
+                res.send({
+                    status: 1,
+                    calls: calls
+                });
+                return true;
+            } catch (e) {
+                console.log(e);
+            }
+
+            res.send({
+                status: 0,
+                msg: "game_code invalid"
+            });
+            return false;
+        });
+    },
+    call_apply(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const provider_code = req.body.provider_code;
+                const pt_game_name = req.body.game_code;
+                const user_code = req.body.user_code;
+                const call_bet = parseFloat(req.body.call_bet);
+                const call_rtp = parseInt(req.body.call_rtp);
+                const call_type = parseInt(req.body.call_type);
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !user_code || user_code == "" || !pt_game_name || pt_game_name == "" || !(call_bet > 0) || !(call_rtp >= 0)) {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
+                }
+                const game_info = gamecontollermgr_1.default.GetGameInfoByPlaformName(pt_game_name)
+                if (!game_info) {
+                    res.send({
+                        status: 0,
+                        msg: "Invalid game_code.",
+                    });
+                    return false;
+                }
+                const game_code = game_info.GameCode;
+                const game_user = game_data_cache.default.getGameUser(user_code, game_code)
+                if (!game_user || !game_user.Game || !(game_user.Game.Bet > 0)) {
+                    res.send({
+                        status: 0,
+                        msg: "user not online",
+                    });
+                    return false;
+                }
+                // if (game_user.Game.Bet != call_bet) {
+                //     res.send({
+                //         status: 0,
+                //         msg: "bet change",
+                //     });
+                //     return false;
+                // }
+                let user = game_user.User;
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let agent = agent_res[0];
+                if (user.agentid !== agent.id) {
+                    res.send({
+                        status: 0,
+                        msg: "user is not belone to agent",
+                    });
+                    return false;
+                }
+                const except_money = game_user.Game.Bet * (call_rtp / 10000)
+                let insert_res = yield allfunctions_1.default.insert_new_game_rtp_call(agent, game_user, game_code, provider_code, except_money, call_bet, call_rtp, 0);
+                if (!insert_res || insert_res.length < 1) {
+                    res.send({
+                        status: 0,
+                        msg: "internal error",
+                    });
+                    return false;
+                }
+
+                if (insert_res[0].Result !== 0) {
+                    res.send({
+                        status: 0,
+                        msg: "repeated rtp call",
+                    });
+                    return false;
                 }
 
                 res.send({
-                    status: 0,
-                    msg: "game_code invalid"
+                    status: 1,
+                    called_money: except_money,
+                    callId: insert_res[0].id,
+                    msg: "SUCCESS",
                 });
-                return false;
+                return true;
+
+            } catch (e) {
+                console.log(e);
+            }
+
+            res.send({
+                status: 0,
+                msg: "sytem error",
             });
-        },
-        call_apply(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const provider_code = req.body.provider_code;
-                    const pt_game_name = req.body.game_code;
-                    const user_code = req.body.user_code;
-                    const call_bet = parseFloat(req.body.call_bet);
-                    const call_rtp = parseInt(req.body.call_rtp);
-                    const call_type = parseInt(req.body.call_type);
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !user_code || user_code == "" || !pt_game_name || pt_game_name == "" || !(call_bet > 0) || !(call_rtp>=0)) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
-                    const game_info = gamecontollermgr_1.default.GetGameInfoByPlaformName(pt_game_name)
+            return false;
+        });
+    },
+    call_history(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const offset = parseInt(req.body.offset);
+                const limit = parseInt(req.body.limit);
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(offset >= 0) || !(limit > 0 && limit <= 500)) {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
+                }
+
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let agent = agent_res[0];
+                let get_res = yield allfunctions_1.default.get_game_rtp_call(agent, offset, limit);
+                if (!get_res) {
+                    res.send({
+                        status: 0,
+                        msg: "Internal Error.",
+                    });
+                    return false;
+                }
+
+                let data = [];
+                get_res.forEach(rtp_call => {
+                    const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
                     if (!game_info) {
                         res.send({
                             status: 0,
@@ -566,663 +711,550 @@ exports.default = {
                         });
                         return false;
                     }
-                    const game_code = game_info.GameCode;
-                    const game_user = game_data_cache.default.getGameUser(user_code, game_code)
-                    if (!game_user || !game_user.Game || !(game_user.Game.Bet > 0)) {
-                        res.send({
-                            status: 0,
-                            msg: "user not online",
-                        });
-                        return false;
-                    }
-                   // if (game_user.Game.Bet != call_bet) {
-                   //     res.send({
-                   //         status: 0,
-                   //         msg: "bet change",
-                   //     });
-                   //     return false;
-                   // }
-                    let user = game_user.User;
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let agent = agent_res[0];
-                    if (user.agentid !== agent.id) {
-                        res.send({
-                            status: 0,
-                            msg: "user is not belone to agent",
-                        });
-                        return false;
-                    }
-                    const except_money = game_user.Game.Bet * (call_rtp/10000)
-                    let insert_res = yield allfunctions_1.default.insert_new_game_rtp_call(agent, game_user, game_code, provider_code,except_money, call_bet, call_rtp, 0);
-                    if (!insert_res || insert_res.length < 1) {
-                        res.send({
-                            status: 0,
-                            msg: "internal error",
-                        });
-                        return false;
-                    }
 
-                    if (insert_res[0].Result !== 0) {
-                        res.send({
-                            status: 0,
-                            msg: "repeated rtp call",
-                        });
-                        return false;
-                    }
-
-                    res.send({
-                        status: 1,
-                        called_money:except_money,
-                        callId:insert_res[0].id,
-                        msg: "SUCCESS",
+                    data.push({
+                        id: rtp_call.id,
+                        agent_code: agent.agentCode,
+                        user_code: rtp_call.user_code,
+                        provider_code: rtp_call.provider_code,
+                        game_code: game_info.PlatformGameName,
+                        bet: rtp_call.bet,
+                        expect: rtp_call.expect,
+                        real: rtp_call.real,
+                        missed: rtp_call.expect - rtp_call.real,
+                        rtp: rtp_call.rtp,
+                        type: "common",
+                        status: rtp_call.status,
+                        created_at: new Date(rtp_call.created_at),
+                        updated_at: new Date(rtp_call.updated_at)
                     });
-                    return true;
-
-                } catch (e){
-                    console.log(e);
-                }
+                });
 
                 res.send({
-                    status: 0,
-                    msg: "sytem error",
+                    status: 1,
+                    data: data
                 });
-                return false;
+                return true;
+            } catch (e) {
+                console.log(e);
+            }
+            res.send({
+                status: 0,
+                msg: "Internal Error.",
             });
-        },
-        call_history(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const offset = parseInt(req.body.offset);
-                    const limit = parseInt(req.body.limit);
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(offset >=0) || !(limit > 0 && limit <=500)) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
+            return false;
+        });
+    },
 
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let agent = agent_res[0];
-                    let get_res = yield allfunctions_1.default.get_game_rtp_call(agent, offset, limit);
-                    if (!get_res) {
-                        res.send({
-                            status: 0,
-                            msg: "Internal Error.",
-                        });
-                        return false;
-                    }
-
-                    let data = [];
-                    get_res.forEach(rtp_call => {
-                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
-                        if (!game_info) {
-                            res.send({
-                                status: 0,
-                                msg: "Invalid game_code.",
-                            });
-                            return false;
-                        }
-
-                        data.push({
-                            id: rtp_call.id,
-                            agent_code: agent.agentCode,
-                            user_code: rtp_call.user_code,
-                            provider_code: rtp_call.provider_code,
-                            game_code: game_info.PlatformGameName,
-                            bet: rtp_call.bet,
-                            expect: rtp_call.expect,
-                            real:rtp_call.real,
-                            missed: rtp_call.expect - rtp_call.real,
-                            rtp: rtp_call.rtp,
-                            type: "common",
-                            status: rtp_call.status, 
-                            created_at: new Date(rtp_call.created_at),
-                            updated_at: new Date(rtp_call.updated_at)
-                        });
-                    });
-
-                    res.send({
-                        status: 1,
-                        data:data
-                    });
-                    return true;
-                } catch (e){
-                    console.log(e);
-                }
-                res.send({
-                    status: 0,
-                    msg: "Internal Error.",
-                });
-                return false;
-            });
-        },
-
-        call_cancel(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const call_id = parseInt(req.body.call_id);
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(call_id>=0)) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
-
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let agent = agent_res[0];
-                    let cancel_res = yield allfunctions_1.default.cancel_game_rtp_call(agent, call_id);
-                    if (cancel_res.length > 0) {
-                        if (cancel_res[0].hasOwnProperty("Difference")) {
-                            res.send({
-                                status: 1,
-                                calceled_money:cancel_res[0].Difference,
-                                msg: "SUCCESS"
-                            });
-                            
-                            return true;
-                        }
-                    }
+    call_cancel(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const call_id = parseInt(req.body.call_id);
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(call_id >= 0)) {
                     res.send({
                         status: 0,
-                        msg: "There is no waiting call."
+                        msg: "invalid param"
                     });
-                    return true;
-
-                } catch (e){
-                    console.log(e);
+                    return false;
                 }
-                res.send({
-                    status: 0,
-                    msg: "Internal Error."
-                });
-            });
-        }, 
-        call_list_info(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const call_id_list = req.body.call_id_list;
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(Array.isArray(call_id_list)) || call_id_list.length<1) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
-                    let call_ids = [];
-                    for (let i=0; i<call_id_list.length; i++) {
-                        const call_id =  parseInt(call_id_list[i]);
-                        let is_repeated = false;
-                        for (let j=0; j<call_ids.length; j++) {
-                            if (call_ids[j] == call_id) {
-                                is_repeated  = true;
-                                break;
-                            }
-                        }
-                        if (!is_repeated) {
-                            call_ids.push(call_id);
-                        }
-                    }
-                    if (call_ids.length < 1) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
 
-                    }
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let agent = agent_res[0];
-                    let get_res = yield allfunctions_1.default.get_game_rtp_call_by_ids(agent, call_ids);
-                    let data = [];
-                    get_res.forEach(rtp_call => {
-                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
-                        if (!game_info) {
-                            res.send({
-                                status: 0,
-                                msg: "Invalid game_code.",
-                            });
-                            return false;
-                        }
-
-                        data.push({
-                            id: rtp_call.id,
-                            agent_code: agent.agentCode,
-                            user_code: rtp_call.user_code,
-                            provider_code: rtp_call.provider_code,
-                            game_code: game_info.PlatformGameName,
-                            bet: rtp_call.bet,
-                            expect: rtp_call.expect,
-                            missed: rtp_call.expect - rtp_call.real,
-                            rtp: rtp_call.rtp,
-                            type: "common",
-                            status: rtp_call.status, 
-                            created_at: new Date(rtp_call.created_at),
-                            updated_at: new Date(rtp_call.updated_at)
-                        });
-                    });
-                    res.send({
-                        status: 1,
-                        data:data
-                    });
-
-                    return true;
-
-                } catch (e){
-                    console.log(e);
-                }
-            });
-        }, 
-        call_cancel_list(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const call_id_list = req.body.call_id_list;
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(!Array.isArray(call_id_list)) || call_id_list.length < 1) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
-
-                    let call_ids = [];
-                    for (let i=0; i<call_id_list.length(); i++) {
-                        const call_id =  parsInt(call_id_list[i]);
-                        let is_repeated = false;
-                        for (let j=0; j<call_ids.length; j++) {
-                            if (call_ids[j] == call_id) {
-                                is_repeated  = true;
-                                break;
-                            }
-                        }
-                        if (!is_repeated) {
-                            call_ids.push(call_id);
-                        }
-                    }
-                    if (call_ids.length < 1) {
-                        res.send({
-                            status: 0,
-                            msg: "invalid param"
-                        });
-                        return false;
-                    }
-
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let agent = agent_res[0];
-                    let res = yield allfunctions_1.default.cancel_game_rtp_call_lst(agent, call_id_list);
-                    if (res.length > 0) {
-                        if (res[0].hasOwnProperty("Difference")) {
-                            res.send({
-                                status: 1,
-                                calceled_money:res[0].Difference,
-                                msg: "SUCCESS"
-                            });
-                            
-                            return true;
-                        }
-                    }
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
                     res.send({
                         status: 0,
-                        msg: "There is no waiting call."
+                        msg: "Agent Token não cadastrado.",
                     });
-                    return true;
-
-                } catch (e){
-                    console.log(e);
+                    return false;
                 }
-                
-            });
-        }, 
-        AgentRtpSet(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const agent_rtp = parseInt(req.body.agent_rtp);
-                    if (!agent_code || agent_code === ""||typeof agent_code!== 'string' ||!agent_token || agent_token === ""||typeof agent_code!== 'string' || agent_code.length > 50 || agent_token.length > 50 || isNaN(agent_rtp||agent_rtp <= 0)) {
-                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
-                    }
-
-                    const ret = yield allfunctions_1.default.AgentRtpSet(agent_code, agent_token, agent_rtp);
-                    if (ret) {
-                        return res.send({ status: 1, agent_code: agent_code, rtp: agent_rtp || 0 });
-                    } else {
-                        return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
-                    }
-                } catch (error) {
-                    console.error(error);
-                    return res.send({ status: 0, msg: "The setting of RTP failed" });
-                }
-            });
-        },
-        AgentUrlSet(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const callbackurl = req.body.callbackurl;
-                    if (!agent_code || agent_code == "" ||typeof agent_code!== 'string' ||!agent_token || agent_token == ""||typeof agent_token!== 'string'  ||!(typeof callbackurl === 'string' && callbackurl.length > 0) || agent_code.length > 50 || agent_token.length > 50) {
-                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
-                    }
-                    const agents = yield allfunctions_1.default.AgentUrlSet(agent_code, agent_token, callbackurl);
-                
-                    if (agents) {
-                        return res.send({ status: 1, agent_code:agent_code, callbackurl: agents.callbackurl || null });
-                    } else {
-                        return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
-                    }
-                } catch (error) {
-                    console.error(error);
-                    return res.send({ status: 0, msg: "The setting of the URL failed" });
-                }
-            });
-        },
-        new_agent(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const agent_code = req.body.agent_code;
-                    const secret_key = req.body.secret_key;
-                    const agent_token = req.body.agent_token;
-                    const api_mode = req.body.api_mode;
-                    if (!agent_code || agent_code == "" ||typeof agent_code!== 'string' ||!agent_token || agent_token == "" ||typeof agent_token!== 'string' || agent_code.length > 50 || agent_token.length > 50||!(api_mode!== 0 && api_mode!== 1)) {
-                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
-                    }
-                    const newAgent = yield allfunctions_1.default.newAgent(agent_code, agent_token, secret_key,api_mode);
-                    if (newAgent) {
-                        return res.send({ status: 1, agent_code: agent_code, agent_token: agent_token, secret_key:secret_key, agent_id:newAgent.id, agent_rtp: newAgent.probganhortp,api_mode:newAgent.api_mode});
-                    } else {
-                        return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
-                    }
-                } catch (error) {
-                    console.error(error);
-                    return res.send({ status: 0, msg: "The setting of the new agent failed" });
-                }
-            });
-        },
-        rtp_call_id(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const id = parseInt(req.body.id);
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !id || id == "") {
+                let agent = agent_res[0];
+                let cancel_res = yield allfunctions_1.default.cancel_game_rtp_call(agent, call_id);
+                if (cancel_res.length > 0) {
+                    if (cancel_res[0].hasOwnProperty("Difference")) {
                         res.send({
-                            status: 0,
-                            msg: "invalid param"
+                            status: 1,
+                            calceled_money: cancel_res[0].Difference,
+                            msg: "SUCCESS"
                         });
-                        return false;
+
+                        return true;
                     }
-
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
-                        res.send({
-                            status: 0,
-                            msg: "Agent Token não cadastrado.",
-                        });
-                        return false;
-                    }
-                    let get_res = yield allfunctions_1.default.rtp_call_user_id(id);
-                    if (!get_res) {
-                        res.send({
-                            status: 0,
-                            msg: "Internal Error.",
-                        });
-                        return false;
-                    }
-
-                    let data = [];
-                    get_res.forEach(rtp_call => {
-                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
-                        if (!game_info) {
-                            res.send({
-                                status: 0,
-                                msg: "Invalid game_code.",
-                            });
-                            return false;
-                        }
-
-                        data.push({
-                            id: rtp_call.id,
-                            agent_code: rtp_call.agentCode,
-                            user_code: rtp_call.user_code,
-                            provider_code: rtp_call.provider_code,
-                            game_code: game_info.PlatformGameName,
-                            bet: rtp_call.bet,
-                            expect: rtp_call.expect,
-                            real:rtp_call.real,
-                            missed: rtp_call.expect - rtp_call.real,
-                            rtp: rtp_call.rtp,
-                            type: "common",
-                            status: rtp_call.status, 
-                            created_at: new Date(rtp_call.created_at),
-                            updated_at: new Date(rtp_call.updated_at)
-                        });
-                    });
-
-                    res.send({
-                        status: 1,
-                        data:data
-                    });
-                    return true;
-                } catch (e){
-                    console.log(e);
                 }
                 res.send({
                     status: 0,
-                    msg: "Internal Error.",
+                    msg: "There is no waiting call."
                 });
-                return false;
+                return true;
+
+            } catch (e) {
+                console.log(e);
+            }
+            res.send({
+                status: 0,
+                msg: "Internal Error."
             });
-        },
-        rtp_call_code(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const user_code = req.body.user_code;
-                    const agent_code = req.body.agent_code;
-                    const agent_token = req.body.agent_token;
-                    const page= parseInt(req.body.page);
-                    const limit = parseInt(req.body.limit);
-
-                    if (!user_code || user_code == "" || !agent_code || agent_code == "" || !agent_token || agent_token == "" || !page || page == "" || !limit || limit == "") {
-                        return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+        });
+    },
+    call_list_info(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const call_id_list = req.body.call_id_list;
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(Array.isArray(call_id_list)) || call_id_list.length < 1) {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
+                }
+                let call_ids = [];
+                for (let i = 0; i < call_id_list.length; i++) {
+                    const call_id = parseInt(call_id_list[i]);
+                    let is_repeated = false;
+                    for (let j = 0; j < call_ids.length; j++) {
+                        if (call_ids[j] == call_id) {
+                            is_repeated = true;
+                            break;
+                        }
                     }
-        
+                    if (!is_repeated) {
+                        call_ids.push(call_id);
+                    }
+                }
+                if (call_ids.length < 1) {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
 
-                    const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
-                    if (!agent_res|| agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                }
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let agent = agent_res[0];
+                let get_res = yield allfunctions_1.default.get_game_rtp_call_by_ids(agent, call_ids);
+                let data = [];
+                get_res.forEach(rtp_call => {
+                    const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                    if (!game_info) {
                         res.send({
                             status: 0,
-                            msg: "Agent Token não cadastrado.",
+                            msg: "Invalid game_code.",
                         });
                         return false;
                     }
-                    let agent = agent_res[0];
-                    const totalRecords = yield allfunctions_1.default.GetTotaluserRecords(user_code); 
- 
-                    const offset = (page - 1) * limit;
-    
-                    if (totalRecords < offset) {
-                        return res.send({ status: 1, data: [], totalRecords: totalRecords ,currentPage: page});
-                    }
-        
-    
 
-                    let get_res = yield allfunctions_1.default.rtp_call_user_code(user_code, offset, limit);
-                    let data = [];
-                    get_res.forEach(rtp_call => {
-                        const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
-                        if (!game_info) {
-                            res.send({
-                                status: 0,
-                                msg: "Invalid game_code.",
-                            });
-                            return false;
-                        }
-
-                        data.push({
-                            id: rtp_call.id,
-                            agent_code: agent.agentCode,
-                            user_code: rtp_call.user_code,
-                            provider_code: rtp_call.provider_code,
-                            game_code: game_info.PlatformGameName,
-                            bet: rtp_call.bet,
-                            expect: rtp_call.expect,
-                            real:rtp_call.real,
-                            missed: rtp_call.expect - rtp_call.real,
-                            rtp: rtp_call.rtp,
-                            type: "common",
-                            status: rtp_call.status, 
-                            created_at: new Date(rtp_call.created_at),
-                            updated_at: new Date(rtp_call.updated_at)
-                        });
+                    data.push({
+                        id: rtp_call.id,
+                        agent_code: agent.agentCode,
+                        user_code: rtp_call.user_code,
+                        provider_code: rtp_call.provider_code,
+                        game_code: game_info.PlatformGameName,
+                        bet: rtp_call.bet,
+                        expect: rtp_call.expect,
+                        missed: rtp_call.expect - rtp_call.real,
+                        rtp: rtp_call.rtp,
+                        type: "common",
+                        status: rtp_call.status,
+                        created_at: new Date(rtp_call.created_at),
+                        updated_at: new Date(rtp_call.updated_at)
                     });
+                });
+                res.send({
+                    status: 1,
+                    data: data
+                });
 
+                return true;
+
+            } catch (e) {
+                console.log(e);
+            }
+        });
+    },
+    call_cancel_list(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const call_id_list = req.body.call_id_list;
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !(!Array.isArray(call_id_list)) || call_id_list.length < 1) {
                     res.send({
-                        status: 1,
-                        data:data,
-                        totalRecords: totalRecords,
-                         currentPage: page
+                        status: 0,
+                        msg: "invalid param"
                     });
-                    return true;
-                } catch (e){
-                    console.log(e);
+                    return false;
+                }
+
+                let call_ids = [];
+                for (let i = 0; i < call_id_list.length(); i++) {
+                    const call_id = parsInt(call_id_list[i]);
+                    let is_repeated = false;
+                    for (let j = 0; j < call_ids.length; j++) {
+                        if (call_ids[j] == call_id) {
+                            is_repeated = true;
+                            break;
+                        }
+                    }
+                    if (!is_repeated) {
+                        call_ids.push(call_id);
+                    }
+                }
+                if (call_ids.length < 1) {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
+                }
+
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let agent = agent_res[0];
+                let res = yield allfunctions_1.default.cancel_game_rtp_call_lst(agent, call_id_list);
+                if (res.length > 0) {
+                    if (res[0].hasOwnProperty("Difference")) {
+                        res.send({
+                            status: 1,
+                            calceled_money: res[0].Difference,
+                            msg: "SUCCESS"
+                        });
+
+                        return true;
+                    }
                 }
                 res.send({
                     status: 0,
-                    msg: "Internal Error.",
+                    msg: "There is no waiting call."
                 });
-                return false;
-            });
-        },
-        SyncGameData(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
+                return true;
 
-                    const last_user_ver = parseInt(req.body.last_user_ver) || 0;
-                    const last_call_ver = parseInt(req.body.last_call_ver) || 0;
-                    const week_id_start = parseInt(req.body.week_id_start) || 0;
-                    const history_time_ms = parseInt(req.body.history_time_ms) || 0;
-                    let page_size = parseInt(req.body.page_size) || 0;
-                    //console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
-                    if (!(page_size>0 && page_size<500)) {
-                        page_size = 100;
-                    }
-                    const userList = yield allfunctions_1.default.getDirtyUserListBySyncVersion(last_user_ver, page_size);
-                    var result = {};
-                    if (Array.isArray(userList)) {
-                        result.users = userList
-                    }
+            } catch (e) {
+                console.log(e);
+            }
 
-                    const callHistoryList = yield allfunctions_1.default.getDirtyCallListBySyncVersion(last_call_ver, page_size);
-                    if (Array.isArray(callHistoryList)) {
-                        result.callList = callHistoryList;
-                    }
-
-                    const nowMs = Date.now();
-                    const historyListRet = yield  allfunctions_1.default.getHistoryListByStartYearWeekId(history_time_ms, week_id_start, nowMs, page_size);
-                    if (historyListRet) {
-                        if (Array.isArray(historyListRet.historyLst) && historyListRet.historyLst.length>0) {
-                            result.historys = historyListRet.historyLst;
-                            const lastHistoryRec = historyListRet.historyLst[historyListRet.historyLst.length - 1];
-                            if (lastHistoryRec){
-                                result.update_ms = lastHistoryRec.bt;
-                                result.week_id_start = lastHistoryRec.id; 
-                            }
-                        }
-                         else {
-                            result.update_ms = nowMs;
-                            result.week_id_start = historyListRet.week_id_start;
-                        }
-                    }
-                    result.status = 1
-                   return res.send(result);
-                } catch (error) {
-                    console.error(error);
-                    return res.send({ status: 0, msg: "The acquisition of the URL failed" });
+        });
+    },
+    AgentRtpSet(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const agent_rtp = parseInt(req.body.agent_rtp);
+                if (!agent_code || agent_code === "" || typeof agent_code !== 'string' || !agent_token || agent_token === "" || typeof agent_code !== 'string' || agent_code.length > 50 || agent_token.length > 50 || isNaN(agent_rtp || agent_rtp <= 0)) {
+                    return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
                 }
-            });
-        },
-        GetBetHistoryVerifyHtml(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const parameters = req.body.ea.split('&');
-                    if (!Array.isArray(parameters) || parameters.length !== 5) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    const typeParams = parameters[0].split('=');
-                    if (typeParams.length < 2) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    const type = typeParams[1];
-                    
-                    let sidParams = parameters[1].split('=');
-                    if (sidParams.length < 2) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    let sid = sidParams[1]; 
-                    let gidParams = parameters[2].split('=');
-                    if (gidParams.length < 2) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    let gid = gidParams[1];
-                    let atkParams = parameters[3].split('=');
-                    if (atkParams.length < 2) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    let atk = atkParams[1];
-                    let langParams = parameters[4].split('=');
-                    if (langParams.length < 2) {
-                        return res.send({ status: 0, msg: "Invalid Params"});
-                    }
-                    let lang = langParams[1];
-                    let env = req.body.env;
 
-                    const trace_id = (0, uuid_1.v4)();
-                    const htmlContent = `
+                const ret = yield allfunctions_1.default.AgentRtpSet(agent_code, agent_token, agent_rtp);
+                if (ret) {
+                    return res.send({ status: 1, agent_code: agent_code, rtp: agent_rtp || 0 });
+                } else {
+                    return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
+                }
+            } catch (error) {
+                console.error(error);
+                return res.send({ status: 0, msg: "The setting of RTP failed" });
+            }
+        });
+    },
+    AgentUrlSet(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const callbackurl = req.body.callbackurl;
+                if (!agent_code || agent_code == "" || typeof agent_code !== 'string' || !agent_token || agent_token == "" || typeof agent_token !== 'string' || !(typeof callbackurl === 'string' && callbackurl.length > 0) || agent_code.length > 50 || agent_token.length > 50) {
+                    return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+                }
+                const agents = yield allfunctions_1.default.AgentUrlSet(agent_code, agent_token, callbackurl);
+
+                if (agents) {
+                    return res.send({ status: 1, agent_code: agent_code, callbackurl: agents.callbackurl || null });
+                } else {
+                    return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
+                }
+            } catch (error) {
+                console.error(error);
+                return res.send({ status: 0, msg: "The setting of the URL failed" });
+            }
+        });
+    },
+    new_agent(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const agent_code = req.body.agent_code;
+                const secret_key = req.body.secret_key;
+                const agent_token = req.body.agent_token;
+                const api_mode = req.body.api_mode;
+                if (!agent_code || agent_code == "" || typeof agent_code !== 'string' || !agent_token || agent_token == "" || typeof agent_token !== 'string' || agent_code.length > 50 || agent_token.length > 50 || !(api_mode !== 0 && api_mode !== 1)) {
+                    return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+                }
+                const newAgent = yield allfunctions_1.default.newAgent(agent_code, agent_token, secret_key, api_mode);
+                if (newAgent) {
+                    return res.send({ status: 1, agent_code: agent_code, agent_token: agent_token, secret_key: secret_key, agent_id: newAgent.id, agent_rtp: newAgent.probganhortp, api_mode: newAgent.api_mode });
+                } else {
+                    return res.send({ status: 0, msg: "The acquisition of parameters from the database failed" });
+                }
+            } catch (error) {
+                console.error(error);
+                return res.send({ status: 0, msg: "The setting of the new agent failed" });
+            }
+        });
+    },
+    rtp_call_id(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.body.id);
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                if (!agent_code || agent_code == "" || !agent_token || agent_token == "" || !id || id == "") {
+                    res.send({
+                        status: 0,
+                        msg: "invalid param"
+                    });
+                    return false;
+                }
+
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let get_res = yield allfunctions_1.default.rtp_call_user_id(id);
+                if (!get_res) {
+                    res.send({
+                        status: 0,
+                        msg: "Internal Error.",
+                    });
+                    return false;
+                }
+
+                let data = [];
+                get_res.forEach(rtp_call => {
+                    const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                    if (!game_info) {
+                        res.send({
+                            status: 0,
+                            msg: "Invalid game_code.",
+                        });
+                        return false;
+                    }
+
+                    data.push({
+                        id: rtp_call.id,
+                        agent_code: rtp_call.agentCode,
+                        user_code: rtp_call.user_code,
+                        provider_code: rtp_call.provider_code,
+                        game_code: game_info.PlatformGameName,
+                        bet: rtp_call.bet,
+                        expect: rtp_call.expect,
+                        real: rtp_call.real,
+                        missed: rtp_call.expect - rtp_call.real,
+                        rtp: rtp_call.rtp,
+                        type: "common",
+                        status: rtp_call.status,
+                        created_at: new Date(rtp_call.created_at),
+                        updated_at: new Date(rtp_call.updated_at)
+                    });
+                });
+
+                res.send({
+                    status: 1,
+                    data: data
+                });
+                return true;
+            } catch (e) {
+                console.log(e);
+            }
+            res.send({
+                status: 0,
+                msg: "Internal Error.",
+            });
+            return false;
+        });
+    },
+    rtp_call_code(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user_code = req.body.user_code;
+                const agent_code = req.body.agent_code;
+                const agent_token = req.body.agent_token;
+                const page = parseInt(req.body.page);
+                const limit = parseInt(req.body.limit);
+
+                if (!user_code || user_code == "" || !agent_code || agent_code == "" || !agent_token || agent_token == "" || !page || page == "" || !limit || limit == "") {
+                    return res.send({ status: 0, msg: "The parameters were entered incorrectly" });
+                }
+
+
+                const agent_res = yield allfunctions_1.default.getagentbyagentToken(agent_token);
+                if (!agent_res || agent_res.length == 0 || agent_res[0].agentCode != agent_code) {
+                    res.send({
+                        status: 0,
+                        msg: "Agent Token não cadastrado.",
+                    });
+                    return false;
+                }
+                let agent = agent_res[0];
+                const totalRecords = yield allfunctions_1.default.GetTotaluserRecords(user_code);
+
+                const offset = (page - 1) * limit;
+
+                if (totalRecords < offset) {
+                    return res.send({ status: 1, data: [], totalRecords: totalRecords, currentPage: page });
+                }
+
+
+
+                let get_res = yield allfunctions_1.default.rtp_call_user_code(user_code, offset, limit);
+                let data = [];
+                get_res.forEach(rtp_call => {
+                    const game_info = gamecontollermgr_1.default.GetGameInfoByGameCode(rtp_call.game_code);
+                    if (!game_info) {
+                        res.send({
+                            status: 0,
+                            msg: "Invalid game_code.",
+                        });
+                        return false;
+                    }
+
+                    data.push({
+                        id: rtp_call.id,
+                        agent_code: agent.agentCode,
+                        user_code: rtp_call.user_code,
+                        provider_code: rtp_call.provider_code,
+                        game_code: game_info.PlatformGameName,
+                        bet: rtp_call.bet,
+                        expect: rtp_call.expect,
+                        real: rtp_call.real,
+                        missed: rtp_call.expect - rtp_call.real,
+                        rtp: rtp_call.rtp,
+                        type: "common",
+                        status: rtp_call.status,
+                        created_at: new Date(rtp_call.created_at),
+                        updated_at: new Date(rtp_call.updated_at)
+                    });
+                });
+
+                res.send({
+                    status: 1,
+                    data: data,
+                    totalRecords: totalRecords,
+                    currentPage: page
+                });
+                return true;
+            } catch (e) {
+                console.log(e);
+            }
+            res.send({
+                status: 0,
+                msg: "Internal Error.",
+            });
+            return false;
+        });
+    },
+    SyncGameData(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+
+                const last_user_ver = parseInt(req.body.last_user_ver) || 0;
+                const last_call_ver = parseInt(req.body.last_call_ver) || 0;
+                const week_id_start = parseInt(req.body.week_id_start) || 0;
+                const history_time_ms = parseInt(req.body.history_time_ms) || 0;
+                let page_size = parseInt(req.body.page_size) || 0;
+                //console.log("last_user_ver=" + last_user_ver + " last_call_ver=" + last_call_ver +" week_id_start=" + week_id_start + " history_time_ms=" + history_time_ms, + " page_size" + page_size);
+                if (!(page_size > 0 && page_size < 500)) {
+                    page_size = 100;
+                }
+                const userList = yield allfunctions_1.default.getDirtyUserListBySyncVersion(last_user_ver, page_size);
+                var result = {};
+                if (Array.isArray(userList)) {
+                    result.users = userList
+                }
+
+                const callHistoryList = yield allfunctions_1.default.getDirtyCallListBySyncVersion(last_call_ver, page_size);
+                if (Array.isArray(callHistoryList)) {
+                    result.callList = callHistoryList;
+                }
+
+                const nowMs = Date.now();
+                const historyListRet = yield allfunctions_1.default.getHistoryListByStartYearWeekId(history_time_ms, week_id_start, nowMs, page_size);
+                if (historyListRet) {
+                    if (Array.isArray(historyListRet.historyLst) && historyListRet.historyLst.length > 0) {
+                        result.historys = historyListRet.historyLst;
+                        const lastHistoryRec = historyListRet.historyLst[historyListRet.historyLst.length - 1];
+                        if (lastHistoryRec) {
+                            result.update_ms = lastHistoryRec.bt;
+                            result.week_id_start = lastHistoryRec.id;
+                        }
+                    }
+                    else {
+                        result.update_ms = nowMs;
+                        result.week_id_start = historyListRet.week_id_start;
+                    }
+                }
+                result.status = 1
+                return res.send(result);
+            } catch (error) {
+                console.error(error);
+                return res.send({ status: 0, msg: "The acquisition of the URL failed" });
+            }
+        });
+    },
+    GetBetHistoryVerifyHtml(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const parameters = req.body.ea.split('&');
+                if (!Array.isArray(parameters) || parameters.length !== 5) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                const typeParams = parameters[0].split('=');
+                if (typeParams.length < 2) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                const type = typeParams[1];
+
+                let sidParams = parameters[1].split('=');
+                if (sidParams.length < 2) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                let sid = sidParams[1];
+                let gidParams = parameters[2].split('=');
+                if (gidParams.length < 2) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                let gid = gidParams[1];
+                let atkParams = parameters[3].split('=');
+                if (atkParams.length < 2) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                let atk = atkParams[1];
+                let langParams = parameters[4].split('=');
+                if (langParams.length < 2) {
+                    return res.send({ status: 0, msg: "Invalid Params" });
+                }
+                let lang = langParams[1];
+                let env = req.body.env;
+
+                const trace_id = (0, uuid_1.v4)();
+                const htmlContent = `
     <!doctype html>
         <html lang="en">
         <head>
@@ -1297,41 +1329,41 @@ exports.default = {
     </html>
     `;
 
-        // 设置响应头并返回构建好的HTML内容
-        res.set('Content-Type', 'text/html');
-        res.send({dt:{content:htmlContent,contentType:"text/html", statusCode:null}, err:null});
+                // 设置响应头并返回构建好的HTML内容
+                res.set('Content-Type', 'text/html');
+                res.send({ dt: { content: htmlContent, contentType: "text/html", statusCode: null }, err: null });
 
 
-                } catch (error) {
-                    console.error(error);
-                    return res.send({ status: 0, msg: "The setting of the proxy agent failed" });
+            } catch (error) {
+                console.error(error);
+                return res.send({ status: 0, msg: "The setting of the proxy agent failed" });
+            }
+        });
+    },
+
+    login_test_user(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const uid_start = parseInt(req.body.uid_start) || 0;
+                const num = parseInt(req.body.num) || 1;
+
+                const users = yield allfunctions_1.default.getuserbystartid(uid_start, num);
+                if (!Array.isArray(users) || users.length < 1) {
+                    return res.send({ status: 0 });
                 }
-            });
-        },
+                const atk_lst = users.map(user => ({
+                    atk: user.atk,
+                    score: user.saldo,
+                }));
+                return res.send({ status: 1, users: atk_lst });
+            } catch (error) {
+                console.log(error);
+                return res.send({ status: 0, msg: "The acquisition of the URL failed" });
+            }
+        });
+    },
 
-        login_test_user(req, res) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const uid_start = parseInt(req.body.uid_start) || 0;
-                    const num = parseInt(req.body.num) || 1;
 
-                    const users= yield allfunctions_1.default.getuserbystartid(uid_start, num);
-                    if (!Array.isArray(users) || users.length < 1) {
-                        return res.send({ status: 0});
-                    }
-                    const atk_lst = users.map(user => ({
-                        atk: user.atk,
-                        score:user.saldo,
-                    }));
-                   return res.send({status:1, users:atk_lst});
-                } catch (error) {
-                    console.log(error);
-                    return res.send({ status: 0, msg: "The acquisition of the URL failed" });
-                }
-            });
-        },
-
-        
 
 
 };
