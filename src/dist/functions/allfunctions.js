@@ -227,7 +227,7 @@ exports.default = {
             const user_code = user.username;
             const atk = user.atk;
             game_data_cache.default.updateUserFields(user_code, game_id, { Bet: bet }, { valordebitado: user.valordebitado + bet, valorapostado: user.valorapostado + bet });
-            const res = yield database_1.default.query("CALL sp_update_user_lost(?,?,?,?,?,?,?)", [user.id, bet, newbalance, rtp_call_id, game_id, from_reward_pool, real_reward_pool_score]);
+            const res = yield database_1.default.query("CALL sp_update_user_lost(?,?,?,?,?,?,?,?)", [user.id, bet, newbalance, rtp_call_id, game_id, from_reward_pool, real_reward_pool_score, agent.is_auto_reward]);
             return res[0];
         });
     },
@@ -237,7 +237,7 @@ exports.default = {
             const atk = user.atk;
             game_data_cache.default.updateUserFields(user_code, game_id, { Bet: bet }, { valordebitado: user.valordebitado + bet, valorapostado: user.valorapostado + bet, valorganho: user.valorganho + winScore });
 
-            const res = yield database_1.default.query("CALL sp_update_user_win(?,?,?,?,?,?,?,?)", [user.id, bet, newbalance, winScore, rtp_call_id, game_id, from_reward_pool, real_reward_pool_score]);
+            const res = yield database_1.default.query("CALL sp_update_user_win(?,?,?,?,?,?,?,?,?)", [user.id, bet, newbalance, winScore, rtp_call_id, game_id, from_reward_pool, real_reward_pool_score, agent.is_auto_reward]);
             return res[0][0];
         });
     },
@@ -269,6 +269,7 @@ exports.default = {
     // 设置agent的自动奖励
     setAgentIsAutoReward(agent_code, is_auto_reward) {
         return __awaiter(this, void 0, void 0, function* () {
+            game_data_cache.default.deleteAgentByCode(agent_code);
             is_auto_reward = +is_auto_reward;
             const res = yield database_1.default.query("UPDATE agents SET is_auto_reward = ? WHERE agentCode = ?", [is_auto_reward, agent_code]);
             if (res && res.length > 0 && res[0].affectedRows === 1) {
@@ -1044,7 +1045,7 @@ exports.default = {
         }
         const betRate = bet / gamejsons[0].Tb;
         console.log("rtp=" + rtp + " score=" + score + " betRate=" + betRate);
-        const ret = this.getJsonIndexRange(gamejsons, score/betRate);
+        const ret = this.getJsonIndexRange(gamejsons, score / betRate);
         let idx = -1;
         if (ret.Low < ret.High) {
             idx = ret.Low + Math.floor(Math.random() * (ret.High - ret.Low + 1));
@@ -1196,14 +1197,13 @@ exports.default = {
                 if (Math.random() * 100 < -1) {
                     retIdx = Math.floor(Math.random() * 500);
                 } else {
-                    const BIGWIN_RATE = Math.floor(((RTP - 60) /  2000) * 100);
+                    const BIGWIN_RATE = Math.floor(((RTP - 60) / 2000) * 100);
                     const randVal = Math.random() * 10000;
                     if (randVal < BIGWIN_RATE) {
                         retIdx = indexHight + Math.floor(Math.random() * (high - indexHight));
-                    } else
-                    {
-                        if (randVal < (RTP*100 - BIGWIN_RATE)/10) {
-                            retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow)); 
+                    } else {
+                        if (randVal < (RTP * 100 - BIGWIN_RATE) / 10) {
+                            retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow));
                         } else {
                             if (randVal < (RTP * 100 - BIGWIN_RATE) / 2) {
                                 retIdx = indexLow + Math.floor(Math.random() * (indexHight - indexLow));

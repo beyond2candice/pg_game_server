@@ -8,17 +8,20 @@ CREATE PROCEDURE sp_update_user_lost(
     IN in_rtp_call_id INT,
     IN in_game_code INT,
     IN in_from_reward_pool TINYINT,
-    IN real_reward_pool_score FLOAT
+    IN real_reward_pool_score FLOAT,
+    IN is_auto_reward TINYINT
 )
 BEGIN
     UPDATE users SET saldo = in_new_balance, valordebitado = valordebitado + in_bet, valorapostado = valorapostado + in_bet WHERE id = in_user_id;
     IF in_rtp_call_id > 0 THEN
         UPDATE gamertpcall SET `real`=`real`-in_bet, status = 2 WHERE id = in_rtp_call_id;
     END IF;
-    IF NOT in_from_reward_pool > 0 THEN
-        UPDATE  `global_score_pool` SET `total_score` = `total_score` +  in_bet * `lost_entry_pool_rate` / 100, `game_total_bet` = `game_total_bet` + in_bet WHERE id = 1;
-    ELSE
-        UPDATE `global_score_pool` SET `total_score` = `total_score` + real_reward_pool_score, `game_total_bet` = `game_total_bet` + in_bet WHERE id = 1;
+    IF  is_auto_reward > 0 THEN
+        IF NOT in_from_reward_pool > 0 THEN
+            UPDATE  `global_score_pool` SET `total_score` = `total_score` +  in_bet * `lost_entry_pool_rate` / 100, `game_total_bet` = `game_total_bet` + in_bet WHERE id = 1;
+        ELSE
+            UPDATE `global_score_pool` SET `total_score` = `total_score` + real_reward_pool_score, `game_total_bet` = `game_total_bet` + in_bet WHERE id = 1;
+        END IF;
     END IF;
     SELECT 1 AS Result;
 END //
@@ -36,7 +39,8 @@ CREATE PROCEDURE sp_update_user_win(
     IN in_rtp_call_id INT,
     IN in_game_code INT,
     IN in_from_reward_pool TINYINT,
-    IN real_reward_pool_score FLOAT
+    IN real_reward_pool_score FLOAT,
+    IN is_auto_reward TINYINT
 )
 BEGIN
     IF in_rtp_call_id > 0 THEN
@@ -46,17 +50,19 @@ BEGIN
         UPDATE users SET saldo =in_new_balance, valordebitado = valordebitado +in_bet, valorapostado = valorapostado +in_bet, valorganho = valorganho +in_win WHERE id=in_user_id;
     END IF;
 
-    IF in_from_reward_pool > 0 THEN
-        IF in_win < real_reward_pool_score THEN
-            UPDATE `global_score_pool` SET `total_score` = `total_score` + (real_reward_pool_score - in_win), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win  WHERE id = 1;
+    IF  is_auto_reward > 0 THEN
+        IF in_from_reward_pool > 0 THEN
+            IF in_win < real_reward_pool_score THEN
+                UPDATE `global_score_pool` SET `total_score` = `total_score` + (real_reward_pool_score - in_win), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win  WHERE id = 1;
+            ELSE
+                UPDATE `global_score_pool` SET `total_score` = GREATEST(0,`total_score` - (in_win - real_reward_pool_score)), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win  WHERE id = 1;
+            END IF;
         ELSE
-            UPDATE `global_score_pool` SET `total_score` = GREATEST(0,`total_score` - (in_win - real_reward_pool_score)), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win  WHERE id = 1;
-        END IF;
-    ELSE
-        IF in_win < in_bet THEN
-            UPDATE  `global_score_pool` SET `total_score` = `total_score` +  (in_bet - in_win) * `lost_entry_pool_rate` / 100, `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win WHERE id = 1;
-        ELSE
-            UPDATE `global_score_pool` SET `total_score` = GREATEST(0, `total_score` - (in_win - in_bet) * `win_entry_pool_rate`/100), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win WHERE id = 1;
+            IF in_win < in_bet THEN
+                UPDATE  `global_score_pool` SET `total_score` = `total_score` +  (in_bet - in_win) * `lost_entry_pool_rate` / 100, `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win WHERE id = 1;
+            ELSE
+                UPDATE `global_score_pool` SET `total_score` = GREATEST(0, `total_score` - (in_win - in_bet) * `win_entry_pool_rate`/100), `game_total_bet` = `game_total_bet` + in_bet, `game_total_win` =  `game_total_win` + in_win WHERE id = 1;
+            END IF;
         END IF;
     END IF;
     SELECT 1 AS Result;
